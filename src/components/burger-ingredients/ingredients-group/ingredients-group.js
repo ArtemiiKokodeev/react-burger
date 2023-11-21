@@ -1,6 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ingredientGroupStyles from './ingredients-group.module.css';
 import IngredientItem from '../ingredients-item/ingredients-item';
+import { ingredientType } from '../../../utils/types';
 
 function IngredientGroup( { typeEn, typeRu, ingredients } ) {
   return (
@@ -20,5 +22,11 @@ function IngredientGroup( { typeEn, typeRu, ingredients } ) {
     </div>
   );
 }
+
+IngredientGroup.propTypes = {
+  ingredients: PropTypes.arrayOf(PropTypes.shape(ingredientType)).isRequired,
+  typeEn: PropTypes.string.isRequired,
+  typeRu: PropTypes.string.isRequired
+}; 
 
 export default IngredientGroup;

@@ -1,13 +1,12 @@
 import { React, useState } from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-
-// import ingredientGroupStyles from './ingredients-group.module.css';
+import ingredientGroupTabsStyles from './ingredients-group-tabs.module.css';
 
 function IngredientGroupTabs() {
   const [current, setCurrent] = useState('one')
 
   return (
-    <div style={{ display: 'flex' }}>
+    <div className={ingredientGroupTabsStyles.container}>
       <Tab value="one" active={current === 'one'} onClick={setCurrent}>
         Булки
       </Tab>
