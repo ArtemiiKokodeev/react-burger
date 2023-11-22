@@ -1,28 +1,18 @@
 import React from 'react';
-import './app.css';
-import { BurgerIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import appStyles from './app.module.css';
+import AppHeader from '../app-header/app-header';
+import BurgerIngredients from '../burger-ingredients/burger-ingredients';
+import BurgerConstructor from '../burger-constructor/burger-constructor';
+import { IngredientData } from '../../utils/data';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <div className="App-logo">
-        <BurgerIcon />  
-          </div>
-        {/* <img src={logo} className="App-logo" alt="logo" /> */}
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        
-      </header>
+    <div className={appStyles.app}>
+      <AppHeader />
+      <main className={appStyles.main}>
+        <BurgerIngredients ingredients={IngredientData}/>
+        <BurgerConstructor ingredients={IngredientData}/>
+      </main>
     </div>
   );
 }

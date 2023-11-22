@@ -1,0 +1,16 @@
+.container {
+  padding: 0;
+  display: flex;
+  justify-content: end;
+}
+
+.totalContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image {
+  width: 36px;
+  height: 36px;
+}
