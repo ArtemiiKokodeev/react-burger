@@ -1,0 +1,22 @@
+.ingredientDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.image {
+  width: 480px;
+  height: 240px;
+  object-fit: cover;
+  display: block;
+}
+
+.container {
+  display: flex;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

@@ -3,9 +3,18 @@ import PropTypes from 'prop-types';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerConstructorStyles from './burger-constructor.module.css';
 import ConstructorOrder from './constructor-order/constructor-order';
-import { ingredientType } from '../../utils/types'
+import { ingredientType } from '../../utils/types';
+import Modal from '../modal/modal';
+import OrderDetails from '../order-details/order-details';
 
-function BurgerConstructor( { ingredients } ) {
+function BurgerConstructor( { 
+  ingredients,
+  showModalOrderDetails,
+  onOpenModalOrderDetails,
+  onCloseModalWithOverlayClick,
+  onCloseAllModals
+} ) {
+
   return (
     <section className={`${burgerConstructorStyles.box} mt-25`}>
       <ConstructorElement
@@ -16,6 +25,7 @@ function BurgerConstructor( { ingredients } ) {
         thumbnail="https://code.s3.yandex.net/react/code/bun-02.png"
         extraClass={`${burgerConstructorStyles.item} ml-8`}
       />
+
       <ul className={`${burgerConstructorStyles.list} custom-scroll`}>
         {ingredients.filter(elem => elem.type !== 'bun').map(el => (
           <li key={el._id} className={burgerConstructorStyles.item}>
@@ -29,6 +39,7 @@ function BurgerConstructor( { ingredients } ) {
           </li>
         ))}
       </ul>
+
       <ConstructorElement
         type="bottom"
         isLocked={true}
@@ -37,13 +48,27 @@ function BurgerConstructor( { ingredients } ) {
         thumbnail="https://code.s3.yandex.net/react/code/bun-02.png"
         extraClass={`${burgerConstructorStyles.item} ml-8`}
       />
-      <ConstructorOrder total="610"/>
+
+      <ConstructorOrder total={610} onOpenModalOrderDetails={onOpenModalOrderDetails}/>
+
+      {showModalOrderDetails && 
+        <Modal 
+          onClose={onCloseAllModals}
+          onCloseModalWithOverlayClick={onCloseModalWithOverlayClick}
+        >
+          <OrderDetails orderNumber={123456}/>
+        </Modal>
+      }
     </section>
   );
 }
 
 BurgerConstructor.propTypes = {
-  ingredients: PropTypes.arrayOf(PropTypes.shape(ingredientType)).isRequired
+  ingredients: PropTypes.arrayOf(PropTypes.shape(ingredientType)).isRequired,
+  showModalOrderDetails: PropTypes.bool.isRequired,
+  onOpenModalOrderDetails: PropTypes.func.isRequired,
+  onCloseModalWithOverlayClick: PropTypes.func.isRequired,
+  onCloseAllModals: PropTypes.func.isRequired
 }; 
 
 export default BurgerConstructor;
