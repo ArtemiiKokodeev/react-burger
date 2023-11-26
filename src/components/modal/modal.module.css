@@ -27,12 +27,13 @@
 
 .header {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
   width: 640px;
 }
 
 .title {
+  width: 616px;
   color:#F2F2F3;
   padding: 0;
   margin: 0;
@@ -40,5 +41,5 @@
   font-weight: 700;
   font-size: 36px;
   line-height: 1.11;
-  /* text-align: center; */
+  text-align: center;
 }
