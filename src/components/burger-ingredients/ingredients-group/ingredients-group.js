@@ -4,7 +4,7 @@ import ingredientGroupStyles from './ingredients-group.module.css';
 import IngredientItem from '../ingredients-item/ingredients-item';
 import { ingredientType } from '../../../utils/types';
 
-function IngredientGroup( { typeEn, typeRu, ingredients } ) {
+function IngredientGroup( { typeEn, typeRu, ingredients, onIngredientClick } ) {
   return (
     <div className="mt-10">
       <h3 className="text text_type_main-medium mb-6">{typeRu}</h3>
@@ -12,6 +12,8 @@ function IngredientGroup( { typeEn, typeRu, ingredients } ) {
         {ingredients.filter(el => el.type === typeEn).map(elem => (
           <li key={elem._id}>
             <IngredientItem 
+              ingredient={elem}
+              onIngredientClick={onIngredientClick}
               name={elem.name}
               price={elem.price}
               image={elem.image}
@@ -26,7 +28,8 @@ function IngredientGroup( { typeEn, typeRu, ingredients } ) {
 IngredientGroup.propTypes = {
   ingredients: PropTypes.arrayOf(PropTypes.shape(ingredientType)).isRequired,
   typeEn: PropTypes.string.isRequired,
-  typeRu: PropTypes.string.isRequired
+  typeRu: PropTypes.string.isRequired,
+  onIngredientClick: PropTypes.func.isRequired
 }; 
 
 export default IngredientGroup;

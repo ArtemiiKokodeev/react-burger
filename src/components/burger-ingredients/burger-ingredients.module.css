@@ -1,6 +1,5 @@
 .box {
   max-width: 600px;
-  max-height: 756px;
+  max-height: 600px;
   overflow-y: scroll;
-  
 }
