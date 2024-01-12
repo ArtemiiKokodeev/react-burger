@@ -6,15 +6,14 @@ import IngredientGroup from './ingredients-group/ingredients-group';
 import { ingredientType } from '../../utils/types';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
+import { useSelector } from 'react-redux';
 
 function BurgerIngredients( { 
-  ingredients, 
-  selectedIngredientForOpen,
   onCloseModalWithOverlayClick,
-  showModalIngredientDetails,
   onCloseAllModals,
-  onIngredientClick
 } ) {
+
+  const { openedIngredient } = useSelector((state) => state.ingredientsDetails);
 
   return (
     <section className="mt-10 mr-10">
@@ -23,18 +22,18 @@ function BurgerIngredients( {
       </h2>
       <IngredientGroupTabs />
       <div className={`${burgerIngredientsStyles.box} custom-scroll`}>
-        <IngredientGroup typeEn="bun" typeRu="Булки" ingredients={ingredients} onIngredientClick={onIngredientClick}/>
-        <IngredientGroup typeEn="sauce" typeRu="Соусы" ingredients={ingredients} onIngredientClick={onIngredientClick}/>
-        <IngredientGroup typeEn="main" typeRu="Начинки" ingredients={ingredients} onIngredientClick={onIngredientClick}/>
+        <IngredientGroup typeEn="bun" typeRu="Булки"/>
+        <IngredientGroup typeEn="sauce" typeRu="Соусы"/>
+        <IngredientGroup typeEn="main" typeRu="Начинки"/>
       </div>
 
-      {showModalIngredientDetails && 
+      {openedIngredient && 
         <Modal 
           title="Детали ингредиента"
           onClose={onCloseAllModals}
           onCloseModalWithOverlayClick={onCloseModalWithOverlayClick}
         >
-          <IngredientDetails ingredient={selectedIngredientForOpen}/>
+          <IngredientDetails />
         </Modal>
       }
 
@@ -43,7 +42,7 @@ function BurgerIngredients( {
 }
 
 BurgerIngredients.propTypes = {
-  ingredients: PropTypes.arrayOf(PropTypes.shape(ingredientType)).isRequired,
+  // ingredients: PropTypes.arrayOf(PropTypes.shape(ingredientType)).isRequired,
   selectedIngredientForOpen: PropTypes.shape(ingredientType),
   onCloseModalWithOverlayClick: PropTypes.func.isRequired,
   showModalIngredientDetails: PropTypes.bool.isRequired,

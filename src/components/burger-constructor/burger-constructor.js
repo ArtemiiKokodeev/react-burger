@@ -3,17 +3,19 @@ import PropTypes from 'prop-types';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerConstructorStyles from './burger-constructor.module.css';
 import ConstructorOrder from './constructor-order/constructor-order';
-import { ingredientType } from '../../utils/types';
+// import { ingredientType } from '../../utils/types';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
+import { useSelector } from 'react-redux';
 
 function BurgerConstructor( { 
-  ingredients,
   showModalOrderDetails,
   onOpenModalOrderDetails,
   onCloseModalWithOverlayClick,
   onCloseAllModals
 } ) {
+
+  const { ingredients } = useSelector(state => state.ingredientsArr);
 
   return (
     <section className={`${burgerConstructorStyles.box} mt-25`}>
@@ -64,7 +66,7 @@ function BurgerConstructor( {
 }
 
 BurgerConstructor.propTypes = {
-  ingredients: PropTypes.arrayOf(PropTypes.shape(ingredientType)).isRequired,
+  // ingredients: PropTypes.arrayOf(PropTypes.shape(ingredientType)).isRequired,
   showModalOrderDetails: PropTypes.bool.isRequired,
   onOpenModalOrderDetails: PropTypes.func.isRequired,
   onCloseModalWithOverlayClick: PropTypes.func.isRequired,

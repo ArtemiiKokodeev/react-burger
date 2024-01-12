@@ -3,11 +3,18 @@ import PropTypes from 'prop-types';
 import ingredientItemStyles from './ingredients-item.module.css';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ingredientType } from '../../../utils/types';
+import { SHOW_INGREDIENT_DETAILS } from "../../../services/actions/ingredient-details";
+import { useDispatch } from 'react-redux';
 
-function IngredientItem( { ingredient, onIngredientClick, name, price, image } ) {
+function IngredientItem( { ingredient, name, price, image } ) {
+
+  const dispatch = useDispatch();
 
   const handleIngredientClick = () => {
-    onIngredientClick(ingredient);
+    dispatch({
+      type: SHOW_INGREDIENT_DETAILS,
+      payload: ingredient
+    });
   }
 
   return (

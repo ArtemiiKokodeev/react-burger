@@ -3,25 +3,21 @@ import appStyles from './app.module.css';
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
-import * as api from '../../utils/api';
+import { useSelector, useDispatch } from 'react-redux';
+import { handleGetIngredients } from '../../services/actions/ingredients';
+import { CLOSE_INGREDIENT_DETAILS } from "../../services/actions/ingredient-details";
 
 function App() {
 
-  const [ingredients, setIngredients] = useState([]); // массив ингредиентов с сервера
-  const [showModalIngredientDetails, setShowModalIngredientDetails] = useState(false); // открытие модального окна ингредиента
-  const [selectedIngredientForOpen, setSelectedIngredientForOpen] = useState(null); // данные ингредиента, которого кликнули
   const [showModalOrderDetails, setShowModalOrderDetails] = useState(false); // открытие модального окна заказа
   // const [orderNumber, setOrderNumber] = useState(0); // открытие модального окна заказа
 
-  // запрос на сервер для получения всех ингредиентов при монтировании компонента
-  useEffect(() => {
-    handleGetIngredients()
-  }, [])
+  const dispatch = useDispatch();
+  const { ingredientsRequest } = useSelector((state) => state.ingredientsArr);
 
-  // открытие модального окна ингредиента
   useEffect(() => {
-    selectedIngredientForOpen && setShowModalIngredientDetails(true)
-  }, [selectedIngredientForOpen])
+    dispatch(handleGetIngredients());
+  }, [dispatch]);
 
   function handleOpenModalOrderDetails() {
     setShowModalOrderDetails(true);
@@ -34,43 +30,32 @@ function App() {
 
   // закрытие всех модальных окон
   function handleCloseAllModals() {
-    setShowModalIngredientDetails(false);
-    setSelectedIngredientForOpen(null);
+    dispatch({
+      type: CLOSE_INGREDIENT_DETAILS,
+      payload: null
+    });
     setShowModalOrderDetails(false);
   }
-
-  // получение всех ингредиентов с сервиса API
-  function handleGetIngredients() {
-    api.getIngredients()
-    .then((ingredients) => {
-      setIngredients(ingredients.data)
-    })
-    .catch(() => {
-      console.log("Во время запроса произошла ошибка")
-    })
-  };
   
   return (
     <div className={appStyles.app}>
       <AppHeader />
-      <main className={appStyles.main}>
-        <BurgerIngredients 
-          ingredients={ingredients}
-          selectedIngredientForOpen={selectedIngredientForOpen}
-          onCloseModalWithOverlayClick={handleCloseModalWithOverlayClick}
-          showModalIngredientDetails={showModalIngredientDetails}
-          onCloseAllModals={handleCloseAllModals}
-          onIngredientClick={setSelectedIngredientForOpen}
-        />
-        <BurgerConstructor 
-          ingredients={ingredients}
-          showModalOrderDetails={showModalOrderDetails}
-          onOpenModalOrderDetails={handleOpenModalOrderDetails}
-          onCloseModalWithOverlayClick={handleCloseModalWithOverlayClick}
-          onCloseAllModals={handleCloseAllModals}
-          // orderNumber={orderNumber}
-        />
-      </main>
+      {
+      ingredientsRequest ? <p>Загрузка...</p> :
+        <main className={appStyles.main}>
+          <BurgerIngredients 
+            onCloseModalWithOverlayClick={handleCloseModalWithOverlayClick}
+            onCloseAllModals={handleCloseAllModals}
+          />
+          <BurgerConstructor 
+            showModalOrderDetails={showModalOrderDetails}
+            onOpenModalOrderDetails={handleOpenModalOrderDetails}
+            onCloseModalWithOverlayClick={handleCloseModalWithOverlayClick}
+            onCloseAllModals={handleCloseAllModals}
+            // orderNumber={orderNumber}
+          />
+        </main>
+      }
     </div>
   );
 }
