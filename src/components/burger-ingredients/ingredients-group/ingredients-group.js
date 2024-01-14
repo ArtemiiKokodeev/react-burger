@@ -37,7 +37,7 @@ IngredientGroup.propTypes = {
   // ingredients: PropTypes.arrayOf(PropTypes.shape(ingredientType)).isRequired,
   typeEn: PropTypes.string.isRequired,
   typeRu: PropTypes.string.isRequired,
-  onIngredientClick: PropTypes.func.isRequired
+  // onIngredientClick: PropTypes.func.isRequired
 }; 
 
 export default IngredientGroup;

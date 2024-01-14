@@ -5,6 +5,7 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 import { ingredientType } from '../../../utils/types';
 import { SHOW_INGREDIENT_DETAILS } from "../../../services/actions/ingredient-details";
 import { useDispatch } from 'react-redux';
+import { useDrag } from "react-dnd";
 
 function IngredientItem( { ingredient, name, price, image } ) {
 
@@ -17,8 +18,16 @@ function IngredientItem( { ingredient, name, price, image } ) {
     });
   }
 
+  const [, ref] = useDrag({
+    type: "ingredient",
+    item: ingredient,
+    // collect: (monitor) => ({
+    //   isDragging: monitor.isDragging(),
+    // }),
+  });
+
   return (
-    <div className={`${ingredientItemStyles.item} mb-8`} onClick={handleIngredientClick}>
+    <div className={`${ingredientItemStyles.item} mb-8`} onClick={handleIngredientClick} ref={ref}>
       <img src={image} alt={`Ингредиент ${name}`} 
         className={`${ingredientItemStyles.image} mr-4 mb-1 ml-4`}
       />
@@ -38,7 +47,7 @@ function IngredientItem( { ingredient, name, price, image } ) {
 
 IngredientItem.propTypes = {
   ingredient: PropTypes.shape(ingredientType),
-  onIngredientClick: PropTypes.func.isRequired,
+  // onIngredientClick: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   image: PropTypes.string.isRequired

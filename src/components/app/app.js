@@ -1,4 +1,6 @@
 import { React, useEffect, useState } from 'react';
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import appStyles from './app.module.css';
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
@@ -43,17 +45,19 @@ function App() {
       {
       ingredientsRequest ? <p>Загрузка...</p> :
         <main className={appStyles.main}>
-          <BurgerIngredients 
-            onCloseModalWithOverlayClick={handleCloseModalWithOverlayClick}
-            onCloseAllModals={handleCloseAllModals}
-          />
-          <BurgerConstructor 
-            showModalOrderDetails={showModalOrderDetails}
-            onOpenModalOrderDetails={handleOpenModalOrderDetails}
-            onCloseModalWithOverlayClick={handleCloseModalWithOverlayClick}
-            onCloseAllModals={handleCloseAllModals}
-            // orderNumber={orderNumber}
-          />
+          <DndProvider backend={HTML5Backend}>
+            <BurgerIngredients 
+              onCloseModalWithOverlayClick={handleCloseModalWithOverlayClick}
+              onCloseAllModals={handleCloseAllModals}
+            />
+            <BurgerConstructor 
+              showModalOrderDetails={showModalOrderDetails}
+              onOpenModalOrderDetails={handleOpenModalOrderDetails}
+              onCloseModalWithOverlayClick={handleCloseModalWithOverlayClick}
+              onCloseAllModals={handleCloseAllModals}
+              // orderNumber={orderNumber}
+            />
+          </DndProvider>
         </main>
       }
     </div>

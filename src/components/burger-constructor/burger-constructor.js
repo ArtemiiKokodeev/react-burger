@@ -6,7 +6,10 @@ import ConstructorOrder from './constructor-order/constructor-order';
 // import { ingredientType } from '../../utils/types';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { v4 as uuid } from "uuid";
+import { ADD_INGREDIENTS_TO_CONSTRUCTOR, REMOVE_INGREDIENTS_FROM_CONSTRUCTOR } from "../../services/actions/burger-constructor";
+import { useDrop } from 'react-dnd';
 
 function BurgerConstructor( { 
   showModalOrderDetails,
@@ -15,28 +18,66 @@ function BurgerConstructor( {
   onCloseAllModals
 } ) {
 
-  const { ingredients } = useSelector(state => state.ingredientsArr);
+  // const { ingredients } = useSelector(state => state.ingredientsArr);
+  const { constructorBuns, constructorIngredients } = useSelector((state) => state.burgerConstructor);
+
+  const dispatch = useDispatch();
+
+  const addIngToConstructor = (ingredient) => {
+    return {
+      type: ADD_INGREDIENTS_TO_CONSTRUCTOR,
+      payload: {
+        ...ingredient,
+        key: uuid()
+      }
+    }
+  }
+
+  const removeIngFromConstructor = (ingredient) => {
+    dispatch({
+      type: REMOVE_INGREDIENTS_FROM_CONSTRUCTOR,
+      payload: ingredient.key
+    })
+  }
+
+  const [, drop] = useDrop({
+    accept: "ingredient",
+    drop(item) {
+      dispatch(addIngToConstructor(item));
+      // dispatch({
+      //   type: "INCREASE_COUNTER",
+      //   itemType: item.type,
+      //   itemId: item._id,
+      // });
+    },
+    collect: (monitor) => ({
+      isHover: monitor.isOver(),
+    }),
+  });
+
+
 
   return (
-    <section className={`${burgerConstructorStyles.box} mt-25`}>
+    <section className={`${burgerConstructorStyles.box} mt-25`} ref={drop}>
       <ConstructorElement
         type="top"
         isLocked={true}
-        text="Краторная булка N-200i (верх)"
-        price={200}
-        thumbnail="https://code.s3.yandex.net/react/code/bun-02.png"
+        text={constructorBuns.name}
+        price={constructorBuns.price}
+        thumbnail={constructorBuns.image}
         extraClass={`${burgerConstructorStyles.item} ml-8`}
       />
 
       <ul className={`${burgerConstructorStyles.list} custom-scroll`}>
-        {ingredients.filter(elem => elem.type !== 'bun').map(el => (
-          <li key={el._id} className={burgerConstructorStyles.item}>
+        {constructorIngredients.map(el => (
+          <li key={el.key} className={burgerConstructorStyles.item}>
             <DragIcon type="primary" />
             <ConstructorElement 
               text={el.name}
               price={el.price}
               thumbnail={el.image}
               extraClass={`${burgerConstructorStyles.item} ml-2 mb-4`}
+              handleClose={() => removeIngFromConstructor(el)}
             />
           </li>
         ))}
@@ -45,9 +86,9 @@ function BurgerConstructor( {
       <ConstructorElement
         type="bottom"
         isLocked={true}
-        text="Краторная булка N-200i (низ)"
-        price={200}
-        thumbnail="https://code.s3.yandex.net/react/code/bun-02.png"
+        text={constructorBuns.name}
+        price={constructorBuns.price}
+        thumbnail={constructorBuns.image}
         extraClass={`${burgerConstructorStyles.item} ml-8`}
       />
 

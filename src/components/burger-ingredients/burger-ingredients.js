@@ -45,9 +45,9 @@ BurgerIngredients.propTypes = {
   // ingredients: PropTypes.arrayOf(PropTypes.shape(ingredientType)).isRequired,
   selectedIngredientForOpen: PropTypes.shape(ingredientType),
   onCloseModalWithOverlayClick: PropTypes.func.isRequired,
-  showModalIngredientDetails: PropTypes.bool.isRequired,
+  // showModalIngredientDetails: PropTypes.bool.isRequired,
   onCloseAllModals: PropTypes.func.isRequired,
-  onIngredientClick: PropTypes.func.isRequired
+  // onIngredientClick: PropTypes.func.isRequired
 }; 
 
 export default BurgerIngredients;
