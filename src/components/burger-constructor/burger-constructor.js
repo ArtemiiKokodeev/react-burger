@@ -1,4 +1,4 @@
-import React from 'react';
+import { React, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerConstructorStyles from './burger-constructor.module.css';
@@ -18,7 +18,6 @@ function BurgerConstructor( {
   onCloseAllModals
 } ) {
 
-  // const { ingredients } = useSelector(state => state.ingredientsArr);
   const { constructorBuns, constructorIngredients } = useSelector((state) => state.burgerConstructor);
 
   const dispatch = useDispatch();
@@ -44,18 +43,15 @@ function BurgerConstructor( {
     accept: "ingredient",
     drop(item) {
       dispatch(addIngToConstructor(item));
-      // dispatch({
-      //   type: "INCREASE_COUNTER",
-      //   itemType: item.type,
-      //   itemId: item._id,
-      // });
-    },
-    collect: (monitor) => ({
-      isHover: monitor.isOver(),
-    }),
+    }
   });
 
-
+  const orderTotalPrice = useMemo(() => {
+    const ingredientsTotalPrice = constructorIngredients.reduce((acc, i) => acc + i.price, 0)
+    const bunsTotalPrice = constructorBuns ? constructorBuns.price * 2 : 0;
+    const total =  bunsTotalPrice + ingredientsTotalPrice;
+    return total ? total : 0;
+  }, [constructorIngredients, constructorBuns]);
 
   return (
     <section className={`${burgerConstructorStyles.box} mt-25`} ref={drop}>
@@ -92,7 +88,7 @@ function BurgerConstructor( {
         extraClass={`${burgerConstructorStyles.item} ml-8`}
       />
 
-      <ConstructorOrder total={610} onOpenModalOrderDetails={onOpenModalOrderDetails}/>
+      <ConstructorOrder total={orderTotalPrice} onOpenModalOrderDetails={onOpenModalOrderDetails}/>
 
       {showModalOrderDetails && 
         <Modal 
