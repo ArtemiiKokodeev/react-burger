@@ -19,6 +19,10 @@ export function handleGetIngredients() {
           type: GET_INGREDIENTS_FAILED
         });
       }
-    });
-  };
+    })
+    .catch((err) => {
+      console.log(err);
+      dispatch({ type: GET_INGREDIENTS_FAILED, payload: err });
+    })
+  }
 }

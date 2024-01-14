@@ -12,13 +12,12 @@ import { ADD_INGREDIENTS_TO_CONSTRUCTOR, REMOVE_INGREDIENTS_FROM_CONSTRUCTOR } f
 import { useDrop } from 'react-dnd';
 
 function BurgerConstructor( { 
-  showModalOrderDetails,
-  onOpenModalOrderDetails,
   onCloseModalWithOverlayClick,
   onCloseAllModals
 } ) {
 
   const { constructorBuns, constructorIngredients } = useSelector((state) => state.burgerConstructor);
+  const { isOrderModalOpened, orderNum } = useSelector((state) => state.order);
 
   const dispatch = useDispatch();
 
@@ -54,58 +53,55 @@ function BurgerConstructor( {
   }, [constructorIngredients, constructorBuns]);
 
   return (
-    <section className={`${burgerConstructorStyles.box} mt-25`} ref={drop}>
-      <ConstructorElement
-        type="top"
-        isLocked={true}
-        text={constructorBuns.name}
-        price={constructorBuns.price}
-        thumbnail={constructorBuns.image}
-        extraClass={`${burgerConstructorStyles.item} ml-8`}
-      />
+      <section className={`${burgerConstructorStyles.box} mt-25`} ref={drop}>
+        <ConstructorElement
+          type="top"
+          isLocked={true}
+          text={constructorBuns.name}
+          price={constructorBuns.price}
+          thumbnail={constructorBuns.image}
+          extraClass={`${burgerConstructorStyles.item} ml-8`}
+        />
 
-      <ul className={`${burgerConstructorStyles.list} custom-scroll`}>
-        {constructorIngredients.map(el => (
-          <li key={el.key} className={burgerConstructorStyles.item}>
-            <DragIcon type="primary" />
-            <ConstructorElement 
-              text={el.name}
-              price={el.price}
-              thumbnail={el.image}
-              extraClass={`${burgerConstructorStyles.item} ml-2 mb-4`}
-              handleClose={() => removeIngFromConstructor(el)}
-            />
-          </li>
-        ))}
-      </ul>
+        <ul className={`${burgerConstructorStyles.list} custom-scroll`}>
+          {constructorIngredients.map(el => (
+            <li key={el.key} className={burgerConstructorStyles.item}>
+              <DragIcon type="primary" />
+              <ConstructorElement 
+                text={el.name}
+                price={el.price}
+                thumbnail={el.image}
+                extraClass={`${burgerConstructorStyles.item} ml-2 mb-4`}
+                handleClose={() => removeIngFromConstructor(el)}
+              />
+            </li>
+          ))}
+        </ul>
 
-      <ConstructorElement
-        type="bottom"
-        isLocked={true}
-        text={constructorBuns.name}
-        price={constructorBuns.price}
-        thumbnail={constructorBuns.image}
-        extraClass={`${burgerConstructorStyles.item} ml-8`}
-      />
+        <ConstructorElement
+          type="bottom"
+          isLocked={true}
+          text={constructorBuns.name}
+          price={constructorBuns.price}
+          thumbnail={constructorBuns.image}
+          extraClass={`${burgerConstructorStyles.item} ml-8`}
+        />
 
-      <ConstructorOrder total={orderTotalPrice} onOpenModalOrderDetails={onOpenModalOrderDetails}/>
+        <ConstructorOrder total={orderTotalPrice} />
 
-      {showModalOrderDetails && 
-        <Modal 
-          onClose={onCloseAllModals}
-          onCloseModalWithOverlayClick={onCloseModalWithOverlayClick}
-        >
-          <OrderDetails orderNumber={123456}/>
-        </Modal>
+        {isOrderModalOpened &&
+          <Modal 
+            onClose={onCloseAllModals}
+            onCloseModalWithOverlayClick={onCloseModalWithOverlayClick}
+          >
+            <OrderDetails orderNumber={orderNum}/>
+          </Modal>
       }
     </section>
   );
 }
 
 BurgerConstructor.propTypes = {
-  // ingredients: PropTypes.arrayOf(PropTypes.shape(ingredientType)).isRequired,
-  showModalOrderDetails: PropTypes.bool.isRequired,
-  onOpenModalOrderDetails: PropTypes.func.isRequired,
   onCloseModalWithOverlayClick: PropTypes.func.isRequired,
   onCloseAllModals: PropTypes.func.isRequired
 }; 

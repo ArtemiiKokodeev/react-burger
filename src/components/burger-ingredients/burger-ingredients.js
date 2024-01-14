@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import burgerIngredientsStyles from './burger-ingredients.module.css';
 import IngredientGroupTabs from './ingredients-group-tabs/ingredients-group-tabs';
 import IngredientGroup from './ingredients-group/ingredients-group';
-import { ingredientType } from '../../utils/types';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import { useSelector } from 'react-redux';
@@ -42,12 +41,8 @@ function BurgerIngredients( {
 }
 
 BurgerIngredients.propTypes = {
-  // ingredients: PropTypes.arrayOf(PropTypes.shape(ingredientType)).isRequired,
-  selectedIngredientForOpen: PropTypes.shape(ingredientType),
   onCloseModalWithOverlayClick: PropTypes.func.isRequired,
-  // showModalIngredientDetails: PropTypes.bool.isRequired,
   onCloseAllModals: PropTypes.func.isRequired,
-  // onIngredientClick: PropTypes.func.isRequired
 }; 
 
 export default BurgerIngredients;

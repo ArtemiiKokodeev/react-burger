@@ -2,7 +2,6 @@ import { React, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import ingredientGroupStyles from './ingredients-group.module.css';
 import IngredientItem from '../ingredients-item/ingredients-item';
-// import { ingredientType } from '../../../utils/types';
 import { useSelector } from 'react-redux';
 
 function IngredientGroup( { typeEn, typeRu } ) {
@@ -34,10 +33,8 @@ function IngredientGroup( { typeEn, typeRu } ) {
 }
 
 IngredientGroup.propTypes = {
-  // ingredients: PropTypes.arrayOf(PropTypes.shape(ingredientType)).isRequired,
   typeEn: PropTypes.string.isRequired,
   typeRu: PropTypes.string.isRequired,
-  // onIngredientClick: PropTypes.func.isRequired
 }; 
 
 export default IngredientGroup;

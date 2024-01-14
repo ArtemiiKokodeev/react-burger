@@ -1,4 +1,4 @@
-import { ingredientsApiUrl } from '../utils/constants';
+import { burgerPartyApiUrl } from '../utils/constants';
 
 function getResponse(res) {
   if (!res.ok) {
@@ -8,14 +8,30 @@ function getResponse(res) {
 } 
 
 export const getIngredients = () => {
-  return fetch(`${ingredientsApiUrl}`, {
+  return fetch(`${burgerPartyApiUrl}ingredients`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
     }
   })
-    .then(getResponse)
-    .then((res) => {
-      return res;
-    })
+  .then(getResponse)
+  .then((res) => {
+    return res;
+  })
 };
+
+export const createOrder = (burgerIngredients) => {
+  return fetch(`${burgerPartyApiUrl}orders`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      ingredients: burgerIngredients.map((el) => el._id),
+    }),
+  })
+  .then(getResponse)
+  .then((res) => {
+    return res;
+  })
+}
