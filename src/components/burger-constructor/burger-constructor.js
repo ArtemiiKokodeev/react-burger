@@ -54,38 +54,55 @@ function BurgerConstructor( {
 
   return (
       <section className={`${burgerConstructorStyles.box} mt-25`} ref={drop}>
-        <ConstructorElement
-          type="top"
-          isLocked={true}
-          text={constructorBuns.name}
-          price={constructorBuns.price}
-          thumbnail={constructorBuns.image}
-          extraClass={`${burgerConstructorStyles.item} ml-8`}
-        />
+        {!constructorBuns ? 
+          <div className={`${burgerConstructorStyles.defaultBun} ${burgerConstructorStyles.defaultTopBun} ml-8`}>
+            <p>Выберите булки</p>
+          </div> :
+          <ConstructorElement
+            type="top"
+            isLocked={true}
+            text={constructorBuns.name}
+            price={constructorBuns.price}
+            thumbnail={constructorBuns.image}
+            extraClass={`${burgerConstructorStyles.item} ml-8`}
+          />
+        }
 
-        <ul className={`${burgerConstructorStyles.list} custom-scroll`}>
-          {constructorIngredients.map(el => (
-            <li key={el.key} className={burgerConstructorStyles.item}>
-              <DragIcon type="primary" />
-              <ConstructorElement 
-                text={el.name}
-                price={el.price}
-                thumbnail={el.image}
-                extraClass={`${burgerConstructorStyles.item} ml-2 mb-4`}
-                handleClose={() => removeIngFromConstructor(el)}
-              />
-            </li>
-          ))}
-        </ul>
+        {constructorIngredients.length === 0 ? 
+          <div className={burgerConstructorStyles.defaultIngredientBox}>
+            <div className={`${burgerConstructorStyles.defaultIngredient} mt-4 ml-2 mb-4`}>
+              <p>Выберите начинку</p>
+            </div> 
+          </div> :
+          <ul className={`${burgerConstructorStyles.list} custom-scroll`}>
+            {constructorIngredients.map(el => (
+              <li key={el.key} className={burgerConstructorStyles.item}>
+                <DragIcon type="primary" />
+                <ConstructorElement 
+                  text={el.name}
+                  price={el.price}
+                  thumbnail={el.image}
+                  extraClass={`${burgerConstructorStyles.item} ml-2 mb-4`}
+                  handleClose={() => removeIngFromConstructor(el)}
+                />
+              </li>
+            ))}
+          </ul>
+        }
 
-        <ConstructorElement
-          type="bottom"
-          isLocked={true}
-          text={constructorBuns.name}
-          price={constructorBuns.price}
-          thumbnail={constructorBuns.image}
-          extraClass={`${burgerConstructorStyles.item} ml-8`}
-        />
+        {!constructorBuns ? 
+          <div className={`${burgerConstructorStyles.defaultBun} ${burgerConstructorStyles.defaultBottomBun} ml-8`}>
+            <p>Выберите булки</p>
+          </div> :
+          <ConstructorElement
+            type="bottom"
+            isLocked={true}
+            text={constructorBuns.name}
+            price={constructorBuns.price}
+            thumbnail={constructorBuns.image}
+            extraClass={`${burgerConstructorStyles.item} ml-8`}
+          />
+        }
 
         <ConstructorOrder total={orderTotalPrice} />
 

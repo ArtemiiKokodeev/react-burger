@@ -25,8 +25,9 @@ function ConstructorOrder( { total } ) {
         <p className="text text_type_digits-medium mr-2">{total}</p>
         <img src={CurrencyIconMedium} className="image" alt='Иконка валюты' />
       </div>
-      <Button onClick={createOrder} 
-        htmlType="button" type="primary" size="medium" extraClass="ml-10 mr-4">
+      <Button htmlType="button" type="primary" size="medium" extraClass="ml-10 mr-4"
+        onClick={createOrder} 
+        disabled={constructorBuns === null || constructorIngredients.length === 0}>
           Оформить заказ
       </Button>
     </div>

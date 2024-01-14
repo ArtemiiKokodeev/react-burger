@@ -5,7 +5,7 @@ import {
 } from "../actions/burger-constructor"
 
 const initialState = {
-  constructorBuns: {},
+  constructorBuns: null,
   constructorIngredients: []
 };
 
