@@ -11,9 +11,12 @@ function ConstructorOrder( { total } ) {
   const dispatch = useDispatch();
   const { constructorBuns, constructorIngredients } = useSelector((state) => state.burgerConstructor);
 
-  const orderIngredients = useMemo(() => { 
-    return [...constructorIngredients, constructorBuns]
-  }, [constructorBuns, constructorIngredients]);
+  const orderIngredients = useMemo(() => {
+    const orderArr = structuredClone(constructorIngredients);
+    orderArr.unshift(constructorBuns);
+    orderArr.push(constructorBuns);
+    return orderArr;
+  }, [constructorIngredients, constructorBuns]);
 
   const createOrder = () => {
     dispatch(handleCreateOrder(orderIngredients));
