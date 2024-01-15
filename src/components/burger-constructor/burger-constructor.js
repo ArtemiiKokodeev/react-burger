@@ -1,15 +1,15 @@
 import { React, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerConstructorStyles from './burger-constructor.module.css';
 import ConstructorOrder from './constructor-order/constructor-order';
-// import { ingredientType } from '../../utils/types';
+import BurgerConstructorIng from './burger-constructor-ing/burger-constructor-ing';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import { useSelector, useDispatch } from 'react-redux';
-import { v4 as uuid } from "uuid";
-import { ADD_INGREDIENTS_TO_CONSTRUCTOR, REMOVE_INGREDIENTS_FROM_CONSTRUCTOR } from "../../services/actions/burger-constructor";
 import { useDrop } from 'react-dnd';
+import { v4 as uuid } from "uuid";
+import { ADD_INGREDIENTS_TO_CONSTRUCTOR } from "../../services/actions/burger-constructor";
 
 function BurgerConstructor( { 
   onCloseModalWithOverlayClick,
@@ -21,6 +21,7 @@ function BurgerConstructor( {
 
   const dispatch = useDispatch();
 
+  // отправка экшена добавления ингредиента в конструктор
   const addIngToConstructor = (ingredient) => {
     return {
       type: ADD_INGREDIENTS_TO_CONSTRUCTOR,
@@ -31,13 +32,7 @@ function BurgerConstructor( {
     }
   }
 
-  const removeIngFromConstructor = (ingredient) => {
-    dispatch({
-      type: REMOVE_INGREDIENTS_FROM_CONSTRUCTOR,
-      payload: ingredient.key
-    })
-  }
-
+  // хук переноса интгредиента в конструктор
   const [, drop] = useDrop({
     accept: "ingredient",
     drop(item) {
@@ -45,6 +40,7 @@ function BurgerConstructor( {
     }
   });
 
+  // расчет общей стоимости заказа
   const orderTotalPrice = useMemo(() => {
     const ingredientsTotalPrice = constructorIngredients.reduce((acc, i) => acc + i.price, 0)
     const bunsTotalPrice = constructorBuns ? constructorBuns.price * 2 : 0;
@@ -75,17 +71,8 @@ function BurgerConstructor( {
             </div> 
           </div> :
           <ul className={`${burgerConstructorStyles.list} custom-scroll`}>
-            {constructorIngredients.map(el => (
-              <li key={el.key} className={burgerConstructorStyles.item}>
-                <DragIcon type="primary" />
-                <ConstructorElement 
-                  text={el.name}
-                  price={el.price}
-                  thumbnail={el.image}
-                  extraClass={`${burgerConstructorStyles.item} ml-2 mb-4`}
-                  handleClose={() => removeIngFromConstructor(el)}
-                />
-              </li>
+            {constructorIngredients.map((el, index) => (
+              <BurgerConstructorIng key={el.key} el={el} index={index} />
             ))}
           </ul>
         }

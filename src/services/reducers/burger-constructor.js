@@ -1,7 +1,7 @@
 import {
   ADD_INGREDIENTS_TO_CONSTRUCTOR,
   REMOVE_INGREDIENTS_FROM_CONSTRUCTOR,
-  // SORT_INGREDIENTS_IN_CONSTRUCTOR
+  SORT_INGREDIENTS_IN_CONSTRUCTOR
 } from "../actions/burger-constructor"
 
 const initialState = {
@@ -31,6 +31,12 @@ export const burgerConstructorReducer = (state = initialState, action) => {
             item.key !== action.payload
           ),
         };
+    }
+    case SORT_INGREDIENTS_IN_CONSTRUCTOR: {
+      const constructorIngredients = [...state.constructorIngredients];
+      constructorIngredients.splice(action.payload.dragIndex, 1);
+      constructorIngredients.splice(action.payload.hoverIndex, 0, action.payload.draggedIngredient);
+      return {...state, constructorIngredients};
     }
     default:
       return state;
