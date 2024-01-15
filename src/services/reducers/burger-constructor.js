@@ -34,8 +34,7 @@ export const burgerConstructorReducer = (state = initialState, action) => {
     }
     case SORT_INGREDIENTS_IN_CONSTRUCTOR: {
       const constructorIngredients = [...state.constructorIngredients];
-      constructorIngredients.splice(action.payload.dragIndex, 1);
-      constructorIngredients.splice(action.payload.hoverIndex, 0, action.payload.draggedIngredient);
+      constructorIngredients.splice(action.payload.hoverIndex, 0, constructorIngredients.splice(action.payload.dragIndex, 1)[0]);
       return {...state, constructorIngredients};
     }
     default:

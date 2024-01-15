@@ -1,7 +1,7 @@
 import { React, useRef } from 'react';
 // import PropTypes from 'prop-types';
 import burgerConstructorIngStyles from './burger-constructor-ing.module.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useDrop, useDrag } from 'react-dnd';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { 
@@ -12,7 +12,6 @@ import {
 function BurgerConstructorIng( { el, index } ) {
 
   const dispatch = useDispatch();
-  const { constructorIngredients } = useSelector((state) => state.burgerConstructor);
   const ref = useRef(null);
 
   const moveIngredient = (dragIndex, hoverIndex) => {
@@ -20,8 +19,7 @@ function BurgerConstructorIng( { el, index } ) {
       type: SORT_INGREDIENTS_IN_CONSTRUCTOR,
       payload: {
         dragIndex: dragIndex,
-        hoverIndex: hoverIndex,
-        draggedIngredient: constructorIngredients[dragIndex]
+        hoverIndex: hoverIndex
       }
     });
   };
