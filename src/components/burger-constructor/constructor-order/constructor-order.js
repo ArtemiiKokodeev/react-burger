@@ -5,6 +5,7 @@ import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import CurrencyIconMedium from '../../../images/CurrencyIconMedium.png';
 import { useSelector, useDispatch } from 'react-redux';
 import { handleCreateOrder } from '../../../services/actions/order';
+import { CLEAR_CONSTRUCTOR } from "../../../services/actions/burger-constructor";
 
 function ConstructorOrder( { total } ) {
 
@@ -20,6 +21,7 @@ function ConstructorOrder( { total } ) {
 
   const createOrder = () => {
     dispatch(handleCreateOrder(orderIngredients));
+    dispatch({type: CLEAR_CONSTRUCTOR})
   };
 
   return (
