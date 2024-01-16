@@ -1,10 +1,10 @@
-import { React, useMemo } from 'react';
+import { React, useMemo, forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import ingredientGroupStyles from './ingredients-group.module.css';
 import IngredientItem from '../ingredients-item/ingredients-item';
 import { useSelector } from 'react-redux';
 
-function IngredientGroup( { typeEn, typeRu } ) {
+const IngredientGroup = forwardRef(( { typeEn, typeRu }, ref) => {
 
   const { ingredients } = useSelector(state => state.ingredientsArr);
 
@@ -13,7 +13,7 @@ function IngredientGroup( { typeEn, typeRu } ) {
   , [ingredients, typeEn])
 
   return (
-    <div className="mt-10">
+    <div className="mt-10" ref={ref}>
       <h3 className="text text_type_main-medium mb-6">{typeRu}</h3>
       <ul className={`${ingredientGroupStyles.list} mb-10`}>
         {ingredientsFilteredList.map(elem => (
@@ -30,7 +30,7 @@ function IngredientGroup( { typeEn, typeRu } ) {
       </ul>
     </div>
   );
-}
+})
 
 IngredientGroup.propTypes = {
   typeEn: PropTypes.string.isRequired,

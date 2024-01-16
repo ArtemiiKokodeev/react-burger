@@ -57,7 +57,8 @@ function IngredientItem( { ingredient, name, price, image } ) {
       <Counter 
         count={ingredientsCounter[ingredient._id]}
         size="default" 
-        extraClass="m-1" />
+        extraClass="m-1" 
+      />
     </div>
   );
 }

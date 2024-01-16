@@ -1,23 +1,23 @@
-import { React, useState } from 'react';
+import { React, forwardRef } from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import ingredientGroupTabsStyles from './ingredients-group-tabs.module.css';
 
-function IngredientGroupTabs() {
-  const [current, setCurrent] = useState('one')
+const IngredientGroupTabs = forwardRef(({ 
+  currentTab, onBunTabClick, onBunSauceClick, onBunMainClick }, ref) => {
 
   return (
-    <div className={ingredientGroupTabsStyles.container}>
-      <Tab value="one" active={current === 'one'} onClick={setCurrent}>
+    <div ref={ref} className={ingredientGroupTabsStyles.container}>
+      <Tab value="bun" active={currentTab === 'bun'} onClick={onBunTabClick}>
         Булки
       </Tab>
-      <Tab value="two" active={current === 'two'} onClick={setCurrent}>
+      <Tab value="sauce" active={currentTab === 'sauce'} onClick={onBunSauceClick}>
         Соусы
       </Tab>
-      <Tab value="three" active={current === 'three'} onClick={setCurrent}>
+      <Tab value="main" active={currentTab === 'main'} onClick={onBunMainClick}>
         Начинка
       </Tab>
     </div>
   );
-}
+})
 
 export default IngredientGroupTabs;

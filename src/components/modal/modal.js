@@ -12,7 +12,7 @@ const Modal = ( { children, title, onClose, onCloseModalWithOverlayClick } ) => 
     return () => {
       document.removeEventListener("keydown", handleCloseModalWithEsc);
     }
-  });
+  }, []);
 
   function handleCloseModalWithEsc(e) {
     e.key === "Escape" && onClose();

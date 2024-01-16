@@ -19,10 +19,6 @@ export function handleCreateOrder(ingredients) {
         dispatch({
           type: SHOW_ORDER_DETAILS
         });
-      } else {
-        dispatch({
-          type: CREATE_ORDER_FAILED
-        });
       }
     })
     .catch((err) => {

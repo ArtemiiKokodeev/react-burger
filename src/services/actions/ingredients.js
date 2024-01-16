@@ -14,10 +14,6 @@ export function handleGetIngredients() {
           type: GET_INGREDIENTS_SUCCESS,
           payload: res.data
         });
-      } else {
-        dispatch({
-          type: GET_INGREDIENTS_FAILED
-        });
       }
     })
     .catch((err) => {
