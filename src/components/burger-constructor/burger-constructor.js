@@ -1,72 +1,111 @@
-import React from 'react';
+import { React, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerConstructorStyles from './burger-constructor.module.css';
 import ConstructorOrder from './constructor-order/constructor-order';
-import { ingredientType } from '../../utils/types';
+import BurgerConstructorIng from './burger-constructor-ing/burger-constructor-ing';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
+import { useSelector, useDispatch } from 'react-redux';
+import { useDrop } from 'react-dnd';
+import { v4 as uuid } from "uuid";
+import { ADD_INGREDIENTS_TO_CONSTRUCTOR } from "../../services/actions/burger-constructor";
 
 function BurgerConstructor( { 
-  ingredients,
-  showModalOrderDetails,
-  onOpenModalOrderDetails,
   onCloseModalWithOverlayClick,
   onCloseAllModals
 } ) {
 
+  const { constructorBuns, constructorIngredients } = useSelector((state) => state.burgerConstructor);
+  const { isOrderModalOpened, orderNum } = useSelector((state) => state.order);
+
+  const dispatch = useDispatch();
+
+  // отправка экшена добавления ингредиента в конструктор
+  const addIngToConstructor = (ingredient) => {
+    return {
+      type: ADD_INGREDIENTS_TO_CONSTRUCTOR,
+      payload: {
+        ...ingredient,
+        key: uuid()
+      }
+    }
+  }
+
+  // хук переноса интгредиента в конструктор
+  const [, drop] = useDrop({
+    accept: "ingredient",
+    drop(item) {
+      dispatch(addIngToConstructor(item));
+    }
+  });
+
+  // расчет общей стоимости заказа
+  const orderTotalPrice = useMemo(() => {
+    const ingredientsTotalPrice = constructorIngredients.reduce((acc, i) => acc + i.price, 0)
+    const bunsTotalPrice = constructorBuns ? constructorBuns.price * 2 : 0;
+    const total =  bunsTotalPrice + ingredientsTotalPrice;
+    return total ? total : 0;
+  }, [constructorIngredients, constructorBuns]);
+
   return (
-    <section className={`${burgerConstructorStyles.box} mt-25`}>
-      <ConstructorElement
-        type="top"
-        isLocked={true}
-        text="Краторная булка N-200i (верх)"
-        price={200}
-        thumbnail="https://code.s3.yandex.net/react/code/bun-02.png"
-        extraClass={`${burgerConstructorStyles.item} ml-8`}
-      />
+      <section className={`${burgerConstructorStyles.box} mt-25`} ref={drop}>
+        {!constructorBuns ? 
+          <div className={`${burgerConstructorStyles.defaultBun} ${burgerConstructorStyles.defaultTopBun} ml-8`}>
+            <p>Выберите булки</p>
+          </div> :
+          <ConstructorElement
+            type="top"
+            isLocked={true}
+            text={constructorBuns.name}
+            price={constructorBuns.price}
+            thumbnail={constructorBuns.image}
+            extraClass={`${burgerConstructorStyles.item} ml-8`}
+          />
+        }
 
-      <ul className={`${burgerConstructorStyles.list} custom-scroll`}>
-        {ingredients.filter(elem => elem.type !== 'bun').map(el => (
-          <li key={el._id} className={burgerConstructorStyles.item}>
-            <DragIcon type="primary" />
-            <ConstructorElement 
-              text={el.name}
-              price={el.price}
-              thumbnail={el.image}
-              extraClass={`${burgerConstructorStyles.item} ml-2 mb-4`}
-            />
-          </li>
-        ))}
-      </ul>
+        {constructorIngredients.length === 0 ? 
+          <div className={burgerConstructorStyles.defaultIngredientBox}>
+            <div className={`${burgerConstructorStyles.defaultIngredient} mt-4 ml-2 mb-4`}>
+              <p>Выберите начинку</p>
+            </div> 
+          </div> :
+          <ul className={`${burgerConstructorStyles.list} custom-scroll`}>
+            {constructorIngredients.map((el, index) => (
+              <BurgerConstructorIng key={el.key} el={el} index={index} />
+            ))}
+          </ul>
+        }
 
-      <ConstructorElement
-        type="bottom"
-        isLocked={true}
-        text="Краторная булка N-200i (низ)"
-        price={200}
-        thumbnail="https://code.s3.yandex.net/react/code/bun-02.png"
-        extraClass={`${burgerConstructorStyles.item} ml-8`}
-      />
+        {!constructorBuns ? 
+          <div className={`${burgerConstructorStyles.defaultBun} ${burgerConstructorStyles.defaultBottomBun} ml-8`}>
+            <p>Выберите булки</p>
+          </div> :
+          <ConstructorElement
+            type="bottom"
+            isLocked={true}
+            text={constructorBuns.name}
+            price={constructorBuns.price}
+            thumbnail={constructorBuns.image}
+            extraClass={`${burgerConstructorStyles.item} ml-8`}
+          />
+        }
 
-      <ConstructorOrder total={610} onOpenModalOrderDetails={onOpenModalOrderDetails}/>
+        <ConstructorOrder total={orderTotalPrice} />
 
-      {showModalOrderDetails && 
-        <Modal 
-          onClose={onCloseAllModals}
-          onCloseModalWithOverlayClick={onCloseModalWithOverlayClick}
-        >
-          <OrderDetails orderNumber={123456}/>
-        </Modal>
+        {isOrderModalOpened &&
+          <Modal 
+            onClose={onCloseAllModals}
+            onCloseModalWithOverlayClick={onCloseModalWithOverlayClick}
+          >
+            <OrderDetails orderNumber={orderNum}/>
+          </Modal>
       }
     </section>
   );
 }
 
 BurgerConstructor.propTypes = {
-  ingredients: PropTypes.arrayOf(PropTypes.shape(ingredientType)).isRequired,
-  showModalOrderDetails: PropTypes.bool.isRequired,
-  onOpenModalOrderDetails: PropTypes.func.isRequired,
   onCloseModalWithOverlayClick: PropTypes.func.isRequired,
   onCloseAllModals: PropTypes.func.isRequired
 }; 

@@ -12,7 +12,7 @@ const Modal = ( { children, title, onClose, onCloseModalWithOverlayClick } ) => 
     return () => {
       document.removeEventListener("keydown", handleCloseModalWithEsc);
     }
-  });
+  }, []);
 
   function handleCloseModalWithEsc(e) {
     e.key === "Escape" && onClose();
@@ -24,9 +24,9 @@ const Modal = ( { children, title, onClose, onCloseModalWithOverlayClick } ) => 
     <div className={modalStyles.popup} onClick={onCloseModalWithOverlayClick}>
       <div className={modalStyles.container}>
         <div className={modalStyles.header}>
-          <header className={`${modalStyles.title} text text_type_main-large`}>
+          <h3 className={`${modalStyles.title} text text_type_main-large`}>
             {title}
-          </header>
+          </h3>
           <CloseIcon type="primary" onClick={onClose}/>
         </div>
         {children}
