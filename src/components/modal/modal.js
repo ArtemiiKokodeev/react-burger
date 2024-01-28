@@ -12,6 +12,7 @@ const Modal = ( { children, title, onClose, onCloseModalWithOverlayClick } ) => 
     return () => {
       document.removeEventListener("keydown", handleCloseModalWithEsc);
     }
+    // eslint-disable-next-line
   }, []);
 
   function handleCloseModalWithEsc(e) {
