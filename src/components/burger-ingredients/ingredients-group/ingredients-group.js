@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import ingredientGroupStyles from './ingredients-group.module.css';
 import IngredientItem from '../ingredients-item/ingredients-item';
 import { useSelector } from 'react-redux';
+import { useLocation, Link } from 'react-router-dom';
 
 const IngredientGroup = forwardRef(( { typeEn, typeRu }, ref) => {
 
@@ -12,11 +13,22 @@ const IngredientGroup = forwardRef(( { typeEn, typeRu }, ref) => {
     () => ingredients.filter(el => el.type === typeEn)
   , [ingredients, typeEn])
 
+  const location = useLocation();
+
   return (
     <div className="mt-10" ref={ref}>
       <h3 className="text text_type_main-medium mb-6">{typeRu}</h3>
       <ul className={`${ingredientGroupStyles.list} mb-10`}>
         {ingredientsFilteredList.map(elem => (
+          <Link
+            key={elem._id}
+            // Тут мы формируем динамический путь для нашего ингредиента
+            to={`/ingredients/${elem._id}`}
+            // а также сохраняем в свойство background роут,
+            // на котором была открыта наша модалка
+            state={{ background: location }}
+            style={{textDecoration: 'none'}}
+          >
             <li key={elem._id}>
               <IngredientItem 
                 ingredient={elem}
@@ -25,6 +37,7 @@ const IngredientGroup = forwardRef(( { typeEn, typeRu }, ref) => {
                 image={elem.image}
               />
             </li>
+          </Link>
           ))
         }
       </ul>

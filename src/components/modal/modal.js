@@ -25,9 +25,6 @@ const Modal = ( { children, title, onClose, onCloseModalWithOverlayClick } ) => 
     <div className={modalStyles.popup} onClick={onCloseModalWithOverlayClick}>
       <div className={modalStyles.container}>
         <div className={modalStyles.header}>
-          <h3 className={`${modalStyles.title} text text_type_main-large`}>
-            {title}
-          </h3>
           <CloseIcon type="primary" onClick={onClose}/>
         </div>
         {children}
