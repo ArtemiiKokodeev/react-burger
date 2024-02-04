@@ -25,6 +25,7 @@ export const createOrder = (burgerIngredients) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      authorization: localStorage.getItem('accessToken')
     },
     body: JSON.stringify({
       ingredients: burgerIngredients.map((el) => el._id),
@@ -66,20 +67,6 @@ export const login = (email, password) => {
     })
 };
 
-
-// // проверка токена авторизованного пользователя при обновлении страницы
-// export const checkToken = (token) => {
-//   return fetch(`${BASE_URL}users/me`, {
-//     method: 'GET',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       'Authorization': `Bearer ${token}`,
-//     }
-//   })
-//   .then(getResponse)
-//   .then(data => data)
-// }
-
 const checkReponse = (res) => {
   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
@@ -117,14 +104,14 @@ export const fetchWithRefresh = async (url, options) => {
   }
 };
 
-// // получение данных текущего авторизованного пользователя
-// export const getUserInfo = () => {
-//   const token = localStorage.getItem('accessToken');
-//   return fetch(`${burgerPartyApiUrl}auth/user`, {
-//     headers: {
-//       'Content-type': 'application/json',
-//       authorization: `Bearer ${token}`
-//     }
-//   })
-//   .then(getResponse)
-// }
+export const logout = () => {
+  return fetch(`${burgerPartyApiUrl}auth/logout`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+    },
+    body: JSON.stringify({
+      token: localStorage.getItem("refreshToken"),
+    }),
+  }).then(checkReponse);
+};

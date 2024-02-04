@@ -2,7 +2,7 @@ import { React, useEffect } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import appStyles from './app.module.css';
 import AppHeader from '../app-header/app-header';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { handleGetIngredients } from '../../services/actions/ingredients';
 import { handleGetUserInfo } from '../../services/actions/profile';
 import Home from '../../pages/home/home';
@@ -15,6 +15,8 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
 import UserInfo from '../user-info/user-info';
 import Orders from '../orders/orders';
+import PageNotFound from '../not-found/not-found';
+import ProtectedRouteElement from '../protected-route/protected-route';
 import { CLOSE_INGREDIENT_DETAILS } from "../../services/actions/ingredient-details";
 import { POST_LOGIN_SUCCESS } from "../../services/actions/login";
 
@@ -23,6 +25,8 @@ function App() {
   const location = useLocation();
   const navigate = useNavigate();
   const background = location.state && location.state.background;
+
+  const { loggedIn } = useSelector((state) => state.login);
 
   // запрос массива ингредиентов
   useEffect(() => {
@@ -38,7 +42,7 @@ function App() {
   // запрос данных текущего пользователя
   useEffect(() => {
     dispatch(handleGetUserInfo());
-  }, [dispatch])
+  }, [dispatch, loggedIn])
 
   // закрытие модалки ингредиента и возвращение на роут /
   const handleModalClose = () => {
@@ -76,10 +80,11 @@ function App() {
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/forgot-password" element={<ForgotPassword />} />
         <Route exact path="/reset-password" element={<ResetPassword />} />
-        <Route exact path="/profile" element={<Profile />}>
+        <Route exact path="/profile" element={<ProtectedRouteElement component={Profile}/>}>
           <Route exact path="/profile" element={<UserInfo />} />
           <Route exact path="/profile/orders" element={<Orders />} />
         </Route>
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
 
       {background && (

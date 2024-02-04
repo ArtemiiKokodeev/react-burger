@@ -1,5 +1,5 @@
 import { React, useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 import loginStyles from './login.module.css';
 import UserFormComponent from '../form-component/form-component';
 import { EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -31,9 +31,7 @@ function Login() {
     console.log(formValue.email)
     e.preventDefault();
     dispatch(handleLogin(formValue.email, formValue.password));
-    if (loggedIn) {
-      navigate('/', {replace: true});
-    }
+    navigate('/', {replace: true});
   }
 
   return (

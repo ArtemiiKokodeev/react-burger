@@ -52,6 +52,25 @@
   opacity: .7;
 }
 
+.logoutButton {
+  margin: 0;
+  padding: 0;
+  color: #8585AD;
+  background: none;
+  border: none;
+  text-align: start;
+  text-decoration: none;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 1.25;
+  font-family: 'Jet Brains Mono';
+}
+
+.logoutButton:hover {
+  opacity: .7;
+}
+
 .descriptionText {
   color: #8585AD;
   font-style: normal;

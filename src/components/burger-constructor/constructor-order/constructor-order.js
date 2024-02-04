@@ -4,13 +4,16 @@ import constructorOrderStyles from './constructor-order.module.css';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import CurrencyIconMedium from '../../../images/CurrencyIconMedium.png';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { handleCreateOrder } from '../../../services/actions/order';
 import { CLEAR_CONSTRUCTOR } from "../../../services/actions/burger-constructor";
 
 function ConstructorOrder( { total } ) {
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { constructorBuns, constructorIngredients } = useSelector((state) => state.burgerConstructor);
+  const { loggedIn } = useSelector((state) => state.login);
 
   const orderIngredients = useMemo(() => {
     const orderArr = structuredClone(constructorIngredients);
@@ -20,6 +23,9 @@ function ConstructorOrder( { total } ) {
   }, [constructorIngredients, constructorBuns]);
 
   const createOrder = () => {
+    if (!loggedIn) {
+      navigate('/login', {replace: true});
+    }
     dispatch(handleCreateOrder(orderIngredients));
     dispatch({type: CLEAR_CONSTRUCTOR})
   };

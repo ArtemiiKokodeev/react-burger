@@ -2,8 +2,12 @@ import React from 'react';
 import appHeaderStyles from './app-header.module.css';
 import { BurgerIcon, ListIcon, Logo, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { NavLink, Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 function AppHeader() {
+
+  const { loggedIn } = useSelector((state) => state.login);
+
   return (
     <header className={appHeaderStyles.header}>
       <nav className={appHeaderStyles.nav}>
@@ -31,7 +35,7 @@ function AppHeader() {
       <Link to="/" className={appHeaderStyles.logo}>
         <Logo />
       </Link>
-      <NavLink to="/profile" className={`${appHeaderStyles.headerItem}`}>
+      <NavLink to={loggedIn ? "/profile" : "/login"} className={`${appHeaderStyles.headerItem}`}>
         {({isActive}) => (
           <>
             <ProfileIcon type={isActive ? "primary" : "secondary"}/>

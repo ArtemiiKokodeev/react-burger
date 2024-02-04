@@ -1,7 +1,8 @@
 import {
   POST_LOGIN,
   POST_LOGIN_SUCCESS,
-  POST_LOGIN_FAILED
+  POST_LOGIN_FAILED,
+  POST_LOGOUT
 } from '../actions/login';
 
 const initialState = {
@@ -31,6 +32,12 @@ export const loginReducer = (state = initialState, action) => {
         ...state, 
         loginFailed: true, 
         loginRequest: false 
+      };
+    }
+    case POST_LOGOUT: {
+      return { 
+        ...state, 
+        loggedIn: false
       };
     }
     default: {

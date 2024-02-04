@@ -4,7 +4,8 @@ import {
   GET_USER_INFO_FAILED,
   PATCH_USER_INFO,
   PATCH_USER_INFO_SUCCESS,
-  PATCH_USER_INFO_FAILED
+  PATCH_USER_INFO_FAILED,
+  POST_USER_LOGOUT
 } from '../actions/profile';
 
 const initialState = {
@@ -55,6 +56,12 @@ export const userInfoReducer = (state = initialState, action) => {
         ...state, 
         userInfoFailed: true, 
         userInfoRequest: false 
+      };
+    }
+    case POST_USER_LOGOUT: {
+      return { 
+        ...state,
+        userInfo: null
       };
     }
     default: {

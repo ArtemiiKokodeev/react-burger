@@ -26,12 +26,12 @@ function UserInfo() {
   }, [userInfo])
 
   useEffect(() => {
-    if (userInfo && formValue.name === userInfo.name && formValue.email === userInfo.email) {
+    if (userInfo && formValue.name === userInfo.name && formValue.email === userInfo.email && !formValue.password) {
       setIsShownSubmitButton(false);
     } else {
       setIsShownSubmitButton(true);
     }
-  }, [formValue.name, formValue.email, userInfo])
+  }, [formValue.name, formValue.email, formValue.password, userInfo])
 
   const handleChange = (e) => {
     const {name, value} = e.target;
@@ -49,8 +49,9 @@ function UserInfo() {
     e.preventDefault();
     dispatch(handleUpdateUserInfo(formValue.name, formValue.email, formValue.password));
   }
-    return (
-      <>
+
+  return (
+    <>
       { ingredientsRequest || userInfoRequest ? <p className={homeStyles.loader}>Загрузка...</p> :
 
       <form name="profile" className={userInfoStyles.form} onSubmit={onSubmit}>
@@ -89,11 +90,11 @@ function UserInfo() {
                 Сохранить
               </Button>
             </div>
-        }
-      </form>
-    }
+          }
+        </form>
+      }
     </>
-    )
+  )
 };
 
 export default UserInfo;
