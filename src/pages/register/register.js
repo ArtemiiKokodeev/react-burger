@@ -3,8 +3,13 @@ import { Navigate } from 'react-router-dom';
 import registerStyles from './register.module.css';
 import UserFormComponent from '../form-component/form-component';
 import { Input, EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
+import { handleRegistration } from '../../services/actions/register';
+import { useDispatch, useSelector } from 'react-redux';
 
-function Register( { onRegister, loggedIn } ) {
+function Register() {
+
+  const dispatch = useDispatch();
+  const { loggedIn } = useSelector((state) => state.login);
   
   const [formValue, setFormValue] = useState({
     name: '',
@@ -23,7 +28,7 @@ function Register( { onRegister, loggedIn } ) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // onRegister(formValue.name, formValue.email, formValue.password);
+    dispatch(handleRegistration(formValue.name, formValue.email, formValue.password));
   }
 
   return (

@@ -4,6 +4,7 @@ import appStyles from './app.module.css';
 import AppHeader from '../app-header/app-header';
 import { useDispatch } from 'react-redux';
 import { handleGetIngredients } from '../../services/actions/ingredients';
+import { handleGetUserInfo } from '../../services/actions/profile';
 import Home from '../../pages/home/home';
 import Register from '../../pages/register/register';
 import Login from '../../pages/login/login';
@@ -12,35 +13,55 @@ import ResetPassword from '../../pages/reset-password/reset-password';
 import Profile from '../../pages/profile/profile';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
+import UserInfo from '../user-info/user-info';
+import Orders from '../orders/orders';
 import { CLOSE_INGREDIENT_DETAILS } from "../../services/actions/ingredient-details";
-import { CLOSE_ORDER_DETAILS } from "../../services/actions/order";
+import { POST_LOGIN_SUCCESS } from "../../services/actions/login";
 
 function App() {
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(handleGetIngredients());
-  }, [dispatch]);
-
   const location = useLocation();
   const navigate = useNavigate();
   const background = location.state && location.state.background;
 
+  // запрос массива ингредиентов
+  useEffect(() => {
+    dispatch(handleGetIngredients());
+  }, [dispatch]);
+
+  // проверка авторизации пользователя
+  useEffect(() => {
+    dispatch(handleAccessTokenCheck);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [dispatch]);
+
+  // запрос данных текущего пользователя
+  useEffect(() => {
+    dispatch(handleGetUserInfo());
+  }, [dispatch])
+
+  // закрытие модалки ингредиента и возвращение на роут /
   const handleModalClose = () => {
-    // Возвращаемся к предыдущему пути при закрытии модалки
     navigate(-1);
     dispatch({
       type: CLOSE_INGREDIENT_DETAILS,
       payload: null
-    });
-    dispatch({
-      type: CLOSE_ORDER_DETAILS
     });
   };
 
   // закрытие модальных окон по клику на оверлей
   function handleCloseModalWithOverlayClick(e) {
     e.target === e.currentTarget && handleModalClose();
+  }
+
+  // проверка токена при обновлении страницы
+  function handleAccessTokenCheck() {
+    const accessToken = localStorage.getItem('accessToken');
+    if (accessToken) {
+      dispatch({
+        type: POST_LOGIN_SUCCESS
+      });
+    }
   }
 
   return (
@@ -55,7 +76,10 @@ function App() {
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/forgot-password" element={<ForgotPassword />} />
         <Route exact path="/reset-password" element={<ResetPassword />} />
-        <Route exact path="/profile" element={<Profile />} />
+        <Route exact path="/profile" element={<Profile />}>
+          <Route exact path="/profile" element={<UserInfo />} />
+          <Route exact path="/profile/orders" element={<Orders />} />
+        </Route>
       </Routes>
 
       {background && (

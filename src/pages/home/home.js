@@ -11,6 +11,7 @@ import { CLOSE_ORDER_DETAILS } from "../../services/actions/order";
 function Home() {
   const { ingredientsRequest } = useSelector((state) => state.ingredientsArr);
   const { orderRequest } = useSelector((state) => state.order);
+  const { loginRequest } = useSelector((state) => state.login);
 
   const dispatch = useDispatch();
 
@@ -33,7 +34,7 @@ function Home() {
   return (
     <> 
       {
-        ingredientsRequest || orderRequest ? <p className={homeStyles.loader}>Загрузка...</p> :
+        ingredientsRequest || orderRequest || loginRequest ? <p className={homeStyles.loader}>Загрузка...</p> :
           <main className={homeStyles.main}>
             <DndProvider backend={HTML5Backend}>
               <BurgerIngredients />

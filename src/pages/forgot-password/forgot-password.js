@@ -3,8 +3,11 @@ import { Navigate } from 'react-router-dom';
 import forgotPasswordStyles from './forgot-password.module.css';
 import UserFormComponent from '../form-component/form-component';
 import { EmailInput } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useSelector } from 'react-redux';
 
-function ForgotPassword( { onForgotPassword, loggedIn } ) {
+function ForgotPassword() {
+
+  const { loggedIn } = useSelector((state) => state.login);
   
   const [formValue, setFormValue] = useState({
     email: ''

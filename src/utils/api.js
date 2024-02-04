@@ -35,3 +35,96 @@ export const createOrder = (burgerIngredients) => {
     return res;
   })
 }
+
+// регистрация пользователя
+export const register = (name, email, password) => {
+  return fetch(`${burgerPartyApiUrl}auth/register`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ name, email, password }),
+  })
+    .then(getResponse)
+    .then((res) => {
+      return res;
+    })
+};
+
+// авторизация пользователя
+export const login = (email, password) => {
+  return fetch(`${burgerPartyApiUrl}auth/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email, password }),
+  })
+    .then(getResponse)
+    .then((data) => {
+      return data;
+    })
+};
+
+
+// // проверка токена авторизованного пользователя при обновлении страницы
+// export const checkToken = (token) => {
+//   return fetch(`${BASE_URL}users/me`, {
+//     method: 'GET',
+//     headers: {
+//       'Content-Type': 'application/json',
+//       'Authorization': `Bearer ${token}`,
+//     }
+//   })
+//   .then(getResponse)
+//   .then(data => data)
+// }
+
+const checkReponse = (res) => {
+  return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
+};
+
+export const refreshToken = () => {
+  return fetch(`${burgerPartyApiUrl}auth/token`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+    },
+    body: JSON.stringify({
+      token: localStorage.getItem("refreshToken"),
+    }),
+  }).then(checkReponse);
+};
+
+export const fetchWithRefresh = async (url, options) => {
+  try {
+    const res = await fetch(url, options);
+    return await checkReponse(res);
+  } catch (err) {
+    if (err.message === "jwt expired") {
+      const refreshData = await refreshToken(); //обновляем токен
+      if (!refreshData.success) {
+        return Promise.reject(refreshData);
+      }
+      localStorage.setItem("refreshToken", refreshData.refreshToken);
+      localStorage.setItem("accessToken", refreshData.accessToken);
+      options.headers.authorization = refreshData.accessToken;
+      const res = await fetch(url, options); //повторяем запрос
+      return await checkReponse(res);
+    } else {
+      return Promise.reject(err);
+    }
+  }
+};
+
+// // получение данных текущего авторизованного пользователя
+// export const getUserInfo = () => {
+//   const token = localStorage.getItem('accessToken');
+//   return fetch(`${burgerPartyApiUrl}auth/user`, {
+//     headers: {
+//       'Content-type': 'application/json',
+//       authorization: `Bearer ${token}`
+//     }
+//   })
+//   .then(getResponse)
+// }

@@ -3,8 +3,11 @@ import { Navigate } from 'react-router-dom';
 import resetPasswordStyles from './reset-password.module.css';
 import UserFormComponent from '../form-component/form-component';
 import { Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useSelector } from 'react-redux';
 
-function ResetPassword( { onResetPassword, loggedIn } ) {
+function ResetPassword() {
+
+  const { loggedIn } = useSelector((state) => state.login);
   
   const [formValue, setFormValue] = useState({
     password: '',

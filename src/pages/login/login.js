@@ -1,10 +1,17 @@
 import { React, useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import loginStyles from './login.module.css';
 import UserFormComponent from '../form-component/form-component';
 import { EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { handleLogin } from '../../services/actions/login';
 
-function Login( { onRegister, loggedIn } ) {
+function Login() {
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { loggedIn } = useSelector((state) => state.login);
   
   const [formValue, setFormValue] = useState({
     email: '',
@@ -18,12 +25,15 @@ function Login( { onRegister, loggedIn } ) {
       ...formValue,
       [name]: value
     });
-
   }
 
   const handleSubmit = (e) => {
+    console.log(formValue.email)
     e.preventDefault();
-    // onLogin(formValue.email, formValue.password);
+    dispatch(handleLogin(formValue.email, formValue.password));
+    if (loggedIn) {
+      navigate('/', {replace: true});
+    }
   }
 
   return (

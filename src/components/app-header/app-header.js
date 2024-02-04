@@ -1,33 +1,46 @@
 import React from 'react';
 import appHeaderStyles from './app-header.module.css';
 import { BurgerIcon, ListIcon, Logo, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { NavLink, Link } from 'react-router-dom';
 
 function AppHeader() {
   return (
     <header className={appHeaderStyles.header}>
       <nav className={appHeaderStyles.nav}>
-        <a href="/" className={`${appHeaderStyles.headerItem} pl-5 pr-5 pb-4 pt-4`}>
-          <BurgerIcon type="primary" />
-          <p className={`${appHeaderStyles.title} text text_type_main-default ml-2`}>
-            Конструктор
-          </p>
-        </a>
-        <a href="/" className={`${appHeaderStyles.headerItem} pl-5 pr-5 pb-4 pt-4`}>
-          <ListIcon type="secondary" />
-          <p className={`${appHeaderStyles.title} text text_type_main-default text_color_inactive ml-2`}>
-            Лента заказов
-          </p>
-        </a>
+        <NavLink to="/" className={appHeaderStyles.headerItem}>
+          {({isActive}) => (
+            <>
+              <BurgerIcon type={isActive ? "primary" : "secondary"}/>
+              <p className={`${isActive ? appHeaderStyles.titleActive : appHeaderStyles.title} text text_type_main-default ml-2`}>
+                Конструктор
+              </p>
+            </>
+          )}
+        </NavLink>
+        <NavLink to="/orders" className={`${appHeaderStyles.headerItem}`}>
+          {({isActive}) => (
+            <>
+              <ListIcon type={isActive ? "primary" : "secondary"}/>
+              <p className={`${isActive ? appHeaderStyles.titleActive : appHeaderStyles.title} text text_type_main-default ml-2`}>
+                Лента заказов
+              </p>
+            </>
+          )}
+        </NavLink>
       </nav>
-      <a href="/" className={appHeaderStyles.logo}>
+      <Link to="/" className={appHeaderStyles.logo}>
         <Logo />
-      </a>
-      <a href="/" className={`${appHeaderStyles.headerItem} pl-5 pr-5 pb-4 pt-4`}>
-        <ProfileIcon type="secondary" />
-          <p className={`${appHeaderStyles.title} text text_type_main-default text_color_inactive ml-2`}>
-          Личный кабинет
-          </p>
-      </a>
+      </Link>
+      <NavLink to="/profile" className={`${appHeaderStyles.headerItem}`}>
+        {({isActive}) => (
+          <>
+            <ProfileIcon type={isActive ? "primary" : "secondary"}/>
+            <p className={`${isActive ? appHeaderStyles.titleActive : appHeaderStyles.title} text text_type_main-default ml-2`}>
+              Личный кабинет
+            </p>
+          </>
+        )}
+      </NavLink>
     </header>
   );
 }
