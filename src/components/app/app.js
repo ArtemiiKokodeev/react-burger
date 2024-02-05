@@ -74,7 +74,7 @@ function App() {
       {/* <h1>{JSON.stringify(location)}</h1>
       <h1>{JSON.stringify(location.pathname)}</h1> */}
       <Routes location={background || location}>
-        <Route path="/" element={<Home />}/>
+        <Route index element={<Home />}/>
         <Route path="/ingredients/:ingredientId" element={<IngredientDetails />} />
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/login" element={<Login />} />

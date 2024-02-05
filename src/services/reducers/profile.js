@@ -5,13 +5,15 @@ import {
   PATCH_USER_INFO,
   PATCH_USER_INFO_SUCCESS,
   PATCH_USER_INFO_FAILED,
-  POST_USER_LOGOUT
+  POST_USER_LOGOUT,
+  SET_AUTH_CHECKED
 } from '../actions/profile';
 
 const initialState = {
   userInfoRequest: false,
   userInfoFailed: false,
-  userInfo: null
+  userInfo: null,
+  isAuthChecked: false
 };
 
 export const userInfoReducer = (state = initialState, action) => {
@@ -34,7 +36,8 @@ export const userInfoReducer = (state = initialState, action) => {
       return { 
         ...state, 
         userInfoFailed: true, 
-        userInfoRequest: false 
+        userInfoRequest: false,
+        userInfo: action.payload
       };
     }
     case PATCH_USER_INFO: {
@@ -62,6 +65,12 @@ export const userInfoReducer = (state = initialState, action) => {
       return { 
         ...state,
         userInfo: null
+      };
+    }
+    case SET_AUTH_CHECKED: {
+      return { 
+        ...state,
+        isAuthChecked: action.payload
       };
     }
     default: {
