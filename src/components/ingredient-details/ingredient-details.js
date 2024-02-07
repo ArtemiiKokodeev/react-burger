@@ -1,46 +1,60 @@
 import { React } from 'react';
 import ingredientDetailsStyles from './ingredient-details.module.css';
 import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import homeStyles from '../../pages/home/home.module.css';
 
-function IngredientDetails() {
+function IngredientDetails( {background} ) {
 
+  const { ingredients, ingredientsRequest } = useSelector((state) => state.ingredientsArr);
   const { openedIngredient } = useSelector((state) => state.ingredientsDetails);
 
+  const location = useLocation();
+  const ing = openedIngredient ? openedIngredient : ingredients.find((el) => el._id === location.pathname.slice(-24))
+
   return (
-    <div className={ingredientDetailsStyles.ingredientDetails}>
-      <img src={openedIngredient.image_large} alt={`Ингредиент ${openedIngredient.name}`} 
-        className={`${ingredientDetailsStyles.image} mb-4`}
-      />
-      <p className={`${ingredientDetailsStyles.name} text text_type_main-medium mb-8`}>
-        {openedIngredient.name}
-      </p>
-      <div className={`${ingredientDetailsStyles.container}`}>
-        <div className={`${ingredientDetailsStyles.details} mr-5`}>
-          <p className='text text_type_main-small text_color_inactive mb-2'>Калории, ккал</p>
-          <p className='text text_type_digits-default text_color_inactive'>
-            {openedIngredient.calories}
+    <>
+    {
+      ingredientsRequest ? <p className={homeStyles.loader}>Загрузка...</p> :
+        <div className={ingredientDetailsStyles.ingredientDetails}>
+          <h3 className={`${background ? ingredientDetailsStyles.title : ingredientDetailsStyles.titlePage} text text_type_main-large`}>
+            Детали ингредиента
+          </h3>
+          <img src={ing.image_large} alt={`Ингредиент ${ing.name}`} 
+            className={`${ingredientDetailsStyles.image} mb-4`}
+          />
+          <p className={`${ingredientDetailsStyles.name} text text_type_main-medium mb-8`}>
+            {ing.name}
           </p>
+          <div className={`${ingredientDetailsStyles.container}`}>
+            <div className={`${ingredientDetailsStyles.details} mr-5`}>
+              <p className='text text_type_main-small text_color_inactive mb-2'>Калории, ккал</p>
+              <p className='text text_type_digits-default text_color_inactive'>
+                {ing.calories}
+              </p>
+            </div>
+            <div className={`${ingredientDetailsStyles.details} mr-5`}>
+              <p className='text text_type_main-small text_color_inactive mb-2'>Белки, г</p>
+              <p className='text text_type_digits-default text_color_inactive'>
+                {ing.proteins}
+              </p>
+            </div>
+            <div className={`${ingredientDetailsStyles.details} mr-5`}>
+              <p className='text text_type_main-small text_color_inactive mb-2'>Жиры, г</p>
+              <p className='text text_type_digits-default text_color_inactive'>
+                {ing.fat}
+              </p>
+            </div>
+            <div className={`${ingredientDetailsStyles.details}`}>
+              <p className='text text_type_main-small text_color_inactive mb-2'>Углеводы, г</p>
+              <p className='text text_type_digits-default text_color_inactive'>
+                {ing.carbohydrates}
+              </p>
+            </div>
+          </div>
         </div>
-        <div className={`${ingredientDetailsStyles.details} mr-5`}>
-          <p className='text text_type_main-small text_color_inactive mb-2'>Белки, г</p>
-          <p className='text text_type_digits-default text_color_inactive'>
-            {openedIngredient.proteins}
-          </p>
-        </div>
-        <div className={`${ingredientDetailsStyles.details} mr-5`}>
-          <p className='text text_type_main-small text_color_inactive mb-2'>Жиры, г</p>
-          <p className='text text_type_digits-default text_color_inactive'>
-            {openedIngredient.fat}
-          </p>
-        </div>
-        <div className={`${ingredientDetailsStyles.details}`}>
-          <p className='text text_type_main-small text_color_inactive mb-2'>Углеводы, г</p>
-          <p className='text text_type_digits-default text_color_inactive'>
-            {openedIngredient.carbohydrates}
-          </p>
-        </div>
-      </div>
-    </div>
+    }
+    </>
   );
 }
 

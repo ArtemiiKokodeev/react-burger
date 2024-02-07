@@ -1,21 +1,12 @@
 import { React, useRef, useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import burgerIngredientsStyles from './burger-ingredients.module.css';
 import IngredientGroupTabs from './ingredients-group-tabs/ingredients-group-tabs';
 import IngredientGroup from './ingredients-group/ingredients-group';
-import Modal from '../modal/modal';
-import IngredientDetails from '../ingredient-details/ingredient-details';
-import { useSelector } from 'react-redux';
 
-function BurgerIngredients( { 
-  onCloseModalWithOverlayClick,
-  onCloseAllModals,
-} ) {
+function BurgerIngredients() {
 
   const [currentTab, setCurrentTab] = useState('bun');
   const [tabsPosition, setTabPosition] = useState({});
-
-  const { openedIngredient } = useSelector((state) => state.ingredientsDetails);
 
   const tabsRef = useRef();
   const bunTabRef = useRef();
@@ -57,29 +48,13 @@ function BurgerIngredients( {
         onBunSauceClick={handleSauceTabClick}
         onBunMainClick={handleMainTabClick}
       />
-      <div onScroll={ingredientsScroll} className={`${burgerIngredientsStyles.box} custom-scroll`} >
+      <div onScroll={ingredientsScroll} className={`${burgerIngredientsStyles.box} custom-scroll`}>
         <IngredientGroup typeEn="bun" typeRu="Булки" ref={bunTabRef}/>
         <IngredientGroup typeEn="sauce" typeRu="Соусы" ref={sauceTabRef}/>
         <IngredientGroup typeEn="main" typeRu="Начинки" ref={mainTabRef}/>
       </div>
-
-      {openedIngredient && 
-        <Modal 
-          title="Детали ингредиента"
-          onClose={onCloseAllModals}
-          onCloseModalWithOverlayClick={onCloseModalWithOverlayClick}
-        >
-          <IngredientDetails />
-        </Modal>
-      }
-
     </section>
   );
 }
-
-BurgerIngredients.propTypes = {
-  onCloseModalWithOverlayClick: PropTypes.func.isRequired,
-  onCloseAllModals: PropTypes.func.isRequired,
-}; 
 
 export default BurgerIngredients;

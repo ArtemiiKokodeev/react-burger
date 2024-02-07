@@ -12,6 +12,7 @@ const Modal = ( { children, title, onClose, onCloseModalWithOverlayClick } ) => 
     return () => {
       document.removeEventListener("keydown", handleCloseModalWithEsc);
     }
+    // eslint-disable-next-line
   }, []);
 
   function handleCloseModalWithEsc(e) {
@@ -24,9 +25,6 @@ const Modal = ( { children, title, onClose, onCloseModalWithOverlayClick } ) => 
     <div className={modalStyles.popup} onClick={onCloseModalWithOverlayClick}>
       <div className={modalStyles.container}>
         <div className={modalStyles.header}>
-          <h3 className={`${modalStyles.title} text text_type_main-large`}>
-            {title}
-          </h3>
           <CloseIcon type="primary" onClick={onClose}/>
         </div>
         {children}

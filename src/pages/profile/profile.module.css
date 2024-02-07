@@ -1,0 +1,83 @@
+.profile {
+  margin: 0 auto;
+  padding: 120px 0;
+  max-width: 860px;
+  height: 320px;
+  display: flex;
+}
+
+.navContainer {
+  margin: 0 60px 0 0;
+  padding: 0;
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.linksContainer {
+  margin: 0;
+  padding: 23px 0 23px;
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.linkText {
+  color: #8585AD;
+  text-decoration: none;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 1.25;
+  font-family: 'Jet Brains Mono';
+}
+
+.linkText:hover {
+  opacity: .7;
+}
+
+.linkTextActive {
+  color: #F2F2F3;
+  text-decoration: none;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 1.25;
+  font-family: 'Jet Brains Mono';
+}
+
+.linkTextActive:hover {
+  opacity: .7;
+}
+
+.logoutButton {
+  margin: 0;
+  padding: 0;
+  color: #8585AD;
+  background: none;
+  border: none;
+  text-align: start;
+  text-decoration: none;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 1.25;
+  font-family: 'Jet Brains Mono';
+}
+
+.logoutButton:hover {
+  opacity: .7;
+  cursor: pointer;
+}
+
+.descriptionText {
+  color: #8585AD;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  font-family: 'Jet Brains Mono';
+  opacity: .4;
+}
