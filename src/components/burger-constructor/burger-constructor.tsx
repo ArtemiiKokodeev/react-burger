@@ -12,13 +12,10 @@ import { useAppSelector, useAppDispatch } from '../../index';
 import { TIngredient } from '../../utils/types';
 import { ConstructorIngredient } from '../../services/reducers/burger-constructor';
 
-interface IBurgerConstructorProps {
-  onCloseModalWithOverlayClick: (e: React.MouseEvent<HTMLDivElement>) => void,
-  onCloseAllModals: () => void
-}
+interface IBurgerConstructorProps { onCloseAllModals: () => void }
 
 function BurgerConstructor( 
-  { onCloseModalWithOverlayClick, onCloseAllModals }: IBurgerConstructorProps ) {
+  { onCloseAllModals }: IBurgerConstructorProps ) {
 
   const { constructorBuns, constructorIngredients } = useAppSelector((state) => state.burgerConstructor);
   const { isOrderModalOpened, orderNum } = useAppSelector((state) => state.order);
@@ -61,7 +58,7 @@ function BurgerConstructor(
           <ConstructorElement
             type="top"
             isLocked={true}
-            text={constructorBuns.name}
+            text={`${constructorBuns.name} (верх)`}
             price={constructorBuns.price}
             thumbnail={constructorBuns.image}
             extraClass={`${burgerConstructorStyles.item} ml-8`}
@@ -88,7 +85,7 @@ function BurgerConstructor(
           <ConstructorElement
             type="bottom"
             isLocked={true}
-            text={constructorBuns.name}
+            text={`${constructorBuns.name} (низ)`}
             price={constructorBuns.price}
             thumbnail={constructorBuns.image}
             extraClass={`${burgerConstructorStyles.item} ml-8`}
@@ -100,7 +97,6 @@ function BurgerConstructor(
         {isOrderModalOpened &&
           <Modal 
             onClose={onCloseAllModals}
-            onCloseModalWithOverlayClick={onCloseModalWithOverlayClick}
           >
             <OrderDetails orderNumber={orderNum}/>
           </Modal>

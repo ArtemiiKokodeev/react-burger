@@ -31,7 +31,7 @@ export function handleGetUserInfo() {
       }
     })
     .catch((err) => {
-      console.log(err);
+      // console.log(err);
       dispatch({ type: GET_USER_INFO_FAILED, payload: err });
     })
     .finally(() => dispatch({

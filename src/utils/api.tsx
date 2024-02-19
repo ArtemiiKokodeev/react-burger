@@ -1,9 +1,9 @@
 import { burgerPartyApiUrl } from './constants';
 import { TIngredient } from "../utils/types";
 
-function getResponse (res: Response) {
-  return !res.ok ? Promise.reject(`Ошибка: ${res.status} ${res.statusText}`) : res.json();
-} 
+function checkReponse (res: Response) {
+  return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
+};
 
 // получение массива ингредиентов
 export const getIngredients = () => {
@@ -13,7 +13,7 @@ export const getIngredients = () => {
       "Content-Type": "application/json",
     }
   })
-  .then(getResponse)
+  .then(checkReponse)
   .then((res) => {
     return res;
   })
@@ -32,7 +32,7 @@ export const createOrder = (burgerIngredients: Array<TIngredient>) => {
       ingredients: burgerIngredients.map((el) => el._id),
     }),
   })
-  .then(getResponse)
+  .then(checkReponse)
   .then((res) => {
     return res;
   })
@@ -47,7 +47,7 @@ export const register = (name: string, email: string, password: string) => {
     },
     body: JSON.stringify({ name, email, password }),
   })
-    .then(getResponse)
+    .then(checkReponse)
     .then((res) => {
       return res;
     })
@@ -62,14 +62,10 @@ export const login = (email: string, password: string) => {
     },
     body: JSON.stringify({ email, password }),
   })
-    .then(getResponse)
+    .then(checkReponse)
     .then((data) => {
       return data;
     })
-};
-
-function checkReponse (res: Response) {
-  return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
 
 export const refreshToken = () => {
@@ -127,7 +123,7 @@ export const forgotPassword = (email: string) => {
     },
     body: JSON.stringify({ email }),
   })
-    .then(getResponse)
+    .then(checkReponse)
     .then((res) => {
       return res;
     })
@@ -142,7 +138,7 @@ export const resetPassword = (password: string, token: string) => {
     },
     body: JSON.stringify({ password, token }),
   })
-    .then(getResponse)
+    .then(checkReponse)
     .then((res) => {
       return res;
     })

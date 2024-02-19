@@ -15,11 +15,6 @@ function Home(): React.JSX.Element {
 
   const dispatch = useAppDispatch();
 
-  // закрытие модальных окон по клику на оверлей
-  function handleCloseModalWithOverlayClick(e: React.MouseEvent<HTMLDivElement>) {
-    e.target === e.currentTarget && handleCloseAllModals();
-  }
-
   // закрытие всех модальных окон
   function handleCloseAllModals() {
     dispatch({
@@ -39,7 +34,6 @@ function Home(): React.JSX.Element {
             <DndProvider backend={HTML5Backend}>
               <BurgerIngredients />
               <BurgerConstructor 
-                onCloseModalWithOverlayClick={handleCloseModalWithOverlayClick}
                 onCloseAllModals={handleCloseAllModals}
               />
             </DndProvider>

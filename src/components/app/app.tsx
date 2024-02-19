@@ -53,11 +53,6 @@ function App() {
     });
   };
 
-  // закрытие модальных окон по клику на оверлей
-  function handleCloseModalWithOverlayClick(e: React.MouseEvent<HTMLDivElement>) {
-    e.target === e.currentTarget && handleModalClose();
-  }
-
   // проверка токена при обновлении страницы
   function handleAccessTokenCheck() {
     const accessToken = localStorage.getItem('accessToken');
@@ -94,7 +89,6 @@ function App() {
 	          element={
 	            <Modal 
                 onClose={handleModalClose} 
-                onCloseModalWithOverlayClick={handleCloseModalWithOverlayClick}
               >
 	              <IngredientDetails background={background}/>
 	            </Modal>
