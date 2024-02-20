@@ -24,6 +24,16 @@
   align-items: center;
 }
 
+.successText {
+  margin: 20px 0 20px;
+  padding: 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  font-family: 'Jet Brains Mono';
+}
+
 .redirectText {
   color: #8585AD;
   text-decoration: none;
