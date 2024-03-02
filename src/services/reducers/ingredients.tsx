@@ -4,6 +4,7 @@ import {
   GET_INGREDIENTS_FAILED
 } from '../actions/ingredients';
 import { TIngredient } from "../../utils/types";
+import type { TIngredientsActions } from '../actions/ingredients';
 
 interface IIngredientsInitialState {
   ingredientsRequest: boolean,
@@ -17,7 +18,7 @@ const initialState: IIngredientsInitialState = {
   ingredients: []
 };
 
-export const ingredientsReducer = (state = initialState, action: any) => {
+export const ingredientsReducer = (state = initialState, action: TIngredientsActions) => {
   switch (action.type) {
     case GET_INGREDIENTS: {
       return {

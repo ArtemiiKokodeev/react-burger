@@ -32,7 +32,9 @@ function UserInfo() {
   };
 
   const onCancelChanges = () => {
-    setFormValue({ name: userInfo.name, email: userInfo.email, password: '' });
+    if (userInfo) {
+      setFormValue({ name: userInfo.name, email: userInfo.email, password: '' });
+    }
   }
 
   const onSubmit = (e: FormEvent) => {

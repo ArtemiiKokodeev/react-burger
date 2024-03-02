@@ -8,10 +8,10 @@ import {
   SORT_INGREDIENTS_IN_CONSTRUCTOR 
 } from "../../../services/actions/burger-constructor";
 // import { TIngredient } from '../../../utils/types';
-import { ConstructorIngredient } from '../../../services/reducers/burger-constructor';
+import { TConstructorIngredient } from '../../../utils/types';
 
 type TBurgerConstructorIngProps = {
-  el: ConstructorIngredient,
+  el: TConstructorIngredient,
   index: number
 };
 
@@ -64,7 +64,7 @@ function BurgerConstructorIng( { el, index }: TBurgerConstructorIngProps ): Reac
     },
   });
 
-  const removeIngFromConstructor = (el: ConstructorIngredient) => {
+  const removeIngFromConstructor = (el: TConstructorIngredient) => {
     dispatch({
       type: REMOVE_INGREDIENTS_FROM_CONSTRUCTOR,
       payload: el.key

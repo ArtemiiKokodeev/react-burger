@@ -10,7 +10,7 @@ import { v4 as uuid } from "uuid";
 import { ADD_INGREDIENTS_TO_CONSTRUCTOR } from "../../services/actions/burger-constructor";
 import { useAppSelector, useAppDispatch } from '../../index';
 import { TIngredient } from '../../utils/types';
-import { ConstructorIngredient } from '../../services/reducers/burger-constructor';
+import { TConstructorIngredient } from '../../utils/types';
 
 interface IBurgerConstructorProps { onCloseAllModals: () => void }
 
@@ -43,7 +43,7 @@ function BurgerConstructor(
 
   // расчет общей стоимости заказа
   const orderTotalPrice = useMemo(() => {
-    const ingredientsTotalPrice = (constructorIngredients as ConstructorIngredient[]).reduce((acc, i) => acc + i.price, 0);
+    const ingredientsTotalPrice = (constructorIngredients as TConstructorIngredient[]).reduce((acc, i) => acc + i.price, 0);
     const bunsTotalPrice = constructorBuns ? constructorBuns.price * 2 : 0;
     const total = bunsTotalPrice + ingredientsTotalPrice;
     return total ?? 0;

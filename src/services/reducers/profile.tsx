@@ -8,6 +8,7 @@ import {
   POST_USER_LOGOUT,
   SET_AUTH_CHECKED
 } from '../actions/profile';
+import type { TUserProfile } from '../actions/profile';
 
 interface IUserInfo {
   name: string,
@@ -28,7 +29,7 @@ const initialState: IUserInfoInitialState = {
   isAuthChecked: false
 };
 
-export const userInfoReducer = (state = initialState, action: any) => {
+export const userInfoReducer = (state = initialState, action: TUserProfile) => {
   switch (action.type) {
     case GET_USER_INFO: {
       return {
@@ -48,8 +49,7 @@ export const userInfoReducer = (state = initialState, action: any) => {
       return { 
         ...state, 
         userInfoFailed: true, 
-        userInfoRequest: false,
-        userInfo: action.payload
+        userInfoRequest: false
       };
     }
     case PATCH_USER_INFO: {

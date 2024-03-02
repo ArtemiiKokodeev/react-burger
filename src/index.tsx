@@ -6,13 +6,16 @@ import { Provider, useDispatch, useSelector } from 'react-redux';
 import type { TypedUseSelectorHook } from 'react-redux'
 import { configureStore } from './services/store'
 import { BrowserRouter } from 'react-router-dom';
+import type { ThunkDispatch } from 'redux-thunk';
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 
 const store = configureStore();
 
-export type AppDispatch = typeof store.dispatch;
+type TApplicationActions = any;
+
 export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = ThunkDispatch<RootState, unknown, TApplicationActions>;
 
 export const useAppDispatch: () => AppDispatch = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

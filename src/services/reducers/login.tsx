@@ -4,6 +4,7 @@ import {
   POST_LOGIN_FAILED,
   POST_LOGOUT
 } from '../actions/login';
+import type { TLogin } from '../actions/login';
 
 interface ILoginInitialState {
   loginRequest: boolean,
@@ -17,7 +18,7 @@ const initialState: ILoginInitialState = {
   loggedIn: false
 };
 
-export const loginReducer = (state = initialState, action: any) => {
+export const loginReducer = (state = initialState, action: TLogin) => {
   switch (action.type) {
     case POST_LOGIN: {
       return {
