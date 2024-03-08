@@ -1,5 +1,5 @@
 import * as api from '../../utils/api';
-import { Dispatch } from 'redux';
+import { AppDispatch, AppThunkAction } from '../../index';
 export const POST_REGISTER: "POST_REGISTER" = "POST_REGISTER";
 export const POST_REGISTER_SUCCESS: "POST_REGISTER_SUCCESS" = "POST_REGISTER_SUCCESS";
 export const POST_REGISTER_FAILED: "POST_REGISTER_FAILED" = "POST_REGISTER_FAILED";
@@ -27,8 +27,8 @@ export type TRegisterActions =
   | IPostRegisterFailed
   | ICloseSuccessRegistTest;
 
-export function handleRegistration(name: string, email: string, password: string) {
-  return function(dispatch: Dispatch) {
+export function handleRegistration(name: string, email: string, password: string): AppThunkAction {
+  return function(dispatch: AppDispatch) {
     dispatch({
       type: POST_REGISTER
     });

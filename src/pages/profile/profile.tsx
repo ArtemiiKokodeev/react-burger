@@ -1,15 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import profileStyles from './profile.module.css';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { handleLogout } from '../../services/actions/profile';
 import { POST_LOGOUT } from "../../services/actions/login";
 import { useAppDispatch } from '../../index';
+import { WS_CONNECTION_START } from '../../services/actions/ws-action-types';
 
 function Profile() {
 
   const location = useLocation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const accessToken = localStorage.getItem('accessToken')?.split(' ')[1];
+
+  // запрос массива заказов
+  useEffect(() => {
+    dispatch({ 
+      type: WS_CONNECTION_START, 
+      payload: `wss://norma.nomoreparties.space/orders?token=${accessToken}`});
+      console.log(accessToken)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const onLogout = () => {
     dispatch(handleLogout());
@@ -36,7 +47,7 @@ function Profile() {
           В этом разделе вы можете изменить свои персональные данные
         </p>
       </div>
-
+      
       <Outlet />
     </div>
   )

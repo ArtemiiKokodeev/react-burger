@@ -1,5 +1,5 @@
 import * as api from '../../utils/api';
-import { Dispatch } from 'redux';
+import { AppDispatch, AppThunkAction } from '../../index';
 import { TIngredient } from '../../utils/types'
 export const CREATE_ORDER: "CREATE_ORDER" = "CREATE_ORDER";
 export const CREATE_ORDER_SUCCESS: "CREATE_ORDER_SUCCESS" = "CREATE_ORDER_SUCCESS";
@@ -35,8 +35,8 @@ export type TOrderActions =
   | IShowOrderDetails
   | ICloseOrderDetails;
 
-export function handleCreateOrder(ingredients: Array<TIngredient>) {
-  return function(dispatch: Dispatch) {
+export function handleCreateOrder(ingredients: Array<TIngredient>): AppThunkAction {
+  return function(dispatch: AppDispatch) {
     dispatch({
       type: CREATE_ORDER
     });

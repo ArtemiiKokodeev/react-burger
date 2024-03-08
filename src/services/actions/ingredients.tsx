@@ -1,5 +1,5 @@
 import * as api from '../../utils/api';
-import { Dispatch } from 'redux';
+import { AppDispatch, AppThunkAction } from '../../index';
 import { TIngredient } from '../../utils/types'
 export const GET_INGREDIENTS: "GET_INGREDIENTS" = "GET_INGREDIENTS";
 export const GET_INGREDIENTS_SUCCESS: "GET_INGREDIENTS_SUCCESS" = "GET_INGREDIENTS_SUCCESS";
@@ -23,8 +23,8 @@ export type TIngredientsActions =
   | IGetIngredientsSuccess
   | IGetIngredientsFailed;
 
-export function handleGetIngredients() {
-  return function(dispatch: Dispatch) {
+export function handleGetIngredients(): AppThunkAction {
+  return function(dispatch: AppDispatch) {
     dispatch({
       type: GET_INGREDIENTS
     });
@@ -33,6 +33,7 @@ export function handleGetIngredients() {
         type: GET_INGREDIENTS_SUCCESS,
         payload: res.data
       });
+      console.log(res.data)
     })
     .catch((err) => {
       console.log(err);

@@ -11,6 +11,7 @@ export type TIngredient = {
   image_mobile: string,
   image_large: string,
   __v: number;
+  count?: number;
 };
 
 export type TConstructorIngredient = TIngredient & { key: string };
@@ -20,4 +21,3 @@ export interface IUserInfoFormValues {
   email: string;
   password?: string;
 }; 
-

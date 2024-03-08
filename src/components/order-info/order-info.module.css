@@ -1,0 +1,73 @@
+.orderInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+}
+
+.orderInfoOwnPage {
+  margin: 120px 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* max-width: 640px; */
+}
+
+/* .numberOwnPage { */
+  /* align-self: center; */
+  /* margin: 120px 0 0; */
+/* } */
+
+.statusOwnPage {
+  align-self: center;
+}
+
+.name {
+  width: 720px;
+}
+
+.nameOwnPage {
+  width: 720px;
+  align-self: center;
+  text-align: center;
+  /* margin: 120px 0 0; */
+}
+
+.bottomContainer {
+  width: 720px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.priceContainer {
+  display: flex;
+}
+
+.image {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  display: block;
+  border: 2px solid blue;
+  border-radius: 50%;
+}
+
+.ingredients {
+  max-height: 215px;
+  width: 720px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  padding: 0;
+}
+
+.ingredientContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.imgNameContainer {
+  display: flex;
+  align-items: center;
+}

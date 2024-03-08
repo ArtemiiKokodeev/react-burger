@@ -45,7 +45,7 @@
 .logo {
   display: flex;
   align-items: center;
-  margin: 0 289px 0 112px;
+  margin: 0 289px 0 130px;
   padding: 0;
 }
 
@@ -55,7 +55,7 @@
 
 @media screen and (max-width: 1500px) {
   .logo {
-    margin-left: 56px;
+    margin-left: 20px;
     margin-right: 145px;
   }
 }

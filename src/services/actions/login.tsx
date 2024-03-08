@@ -1,5 +1,5 @@
 import * as api from '../../utils/api';
-import { Dispatch } from 'redux';
+import { AppDispatch, AppThunkAction } from '../../index';
 export const POST_LOGIN: "POST_LOGIN" = "POST_LOGIN";
 export const POST_LOGIN_SUCCESS: "POST_LOGIN_SUCCESS" = "POST_LOGIN_SUCCESS";
 export const POST_LOGIN_FAILED: "POST_LOGIN_FAILED" = "POST_LOGIN_FAILED";
@@ -27,8 +27,8 @@ export type TLogin =
   | IPostLoginFailed
   | IPostLogout;
 
-export function handleLogin(email: string, password: string) {
-  return function(dispatch: Dispatch) {
+export function handleLogin(email: string, password: string): AppThunkAction {
+  return function(dispatch: AppDispatch) {
     dispatch({
       type: POST_LOGIN
     });
