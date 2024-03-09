@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import burgerConstructorIngStyles from './burger-constructor-ing.module.css';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from '../../../index';
 import { useDrop, useDrag } from 'react-dnd';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { 
@@ -17,7 +17,7 @@ type TBurgerConstructorIngProps = {
 
 function BurgerConstructorIng( { el, index }: TBurgerConstructorIngProps ): React.JSX.Element {
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();  
   const ref = useRef<HTMLLIElement>(null);
 
   const moveIngredient = (dragIndex: any, hoverIndex: any) => {

@@ -22,7 +22,6 @@ import { CLOSE_INGREDIENT_DETAILS } from "../../services/actions/ingredient-deta
 import { CLOSE_ORDER_INFO } from "../../services/actions/order-info";
 import { POST_LOGIN_SUCCESS } from "../../services/actions/login";
 import { useAppSelector, useAppDispatch } from '../../index';
-import { WS_CONNECTION_START } from '../../services/actions/ws-action-types';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -36,14 +35,6 @@ function App() {
   useEffect(() => {
     dispatch(handleGetIngredients());
   }, [dispatch]);
-
-  // запрос массива заказов
-  useEffect(() => {
-    dispatch({ 
-      type: WS_CONNECTION_START, 
-      payload: 'wss://norma.nomoreparties.space/orders/all' });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   // проверка авторизации пользователя
   useEffect(() => {

@@ -4,7 +4,7 @@ import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { handleLogout } from '../../services/actions/profile';
 import { POST_LOGOUT } from "../../services/actions/login";
 import { useAppDispatch } from '../../index';
-import { WS_CONNECTION_START } from '../../services/actions/ws-action-types';
+import { WS_CONNECTION_START, WS_CONNECTION_CLOSED } from '../../services/actions/ws-action-types';
 
 function Profile() {
 
@@ -17,10 +17,14 @@ function Profile() {
   useEffect(() => {
     dispatch({ 
       type: WS_CONNECTION_START, 
-      payload: `wss://norma.nomoreparties.space/orders?token=${accessToken}`});
-      console.log(accessToken)
+      payload: `wss://norma.nomoreparties.space/orders?token=${accessToken}`
+    });
+    // console.log(accessToken);
+    return () => {
+      dispatch({ type: WS_CONNECTION_CLOSED });
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dispatch]);
 
   const onLogout = () => {
     dispatch(handleLogout());

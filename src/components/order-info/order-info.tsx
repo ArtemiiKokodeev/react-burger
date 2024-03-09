@@ -18,13 +18,13 @@ const OrderInfo = ( {background }: TOrderInfoProps ): React.JSX.Element => {
   const orderInfoIngredientsId = orderInfo?.ingredients
   const { ingredients } = useAppSelector((state) => state.ingredientsArr);
 
-  useEffect(() => {
-    console.log(orderInfo)
-    console.log(ingredients)
-    console.log(orderIngredientsWithIdAndQuantity)
-    console.log(orderIngredients)
-   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  // useEffect(() => {
+  //   console.log(orderInfo)
+  //   console.log(ingredients)
+  //   console.log(orderIngredientsWithIdAndQuantity)
+  //   console.log(orderIngredients)
+  //  // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [])
 
   // создание массива объектов с ключами: _id - уникальные ингредиенты заказа, count - кол-во штук одного ингредиента в заказе
   const idCounts = {};

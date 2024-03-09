@@ -2,7 +2,7 @@ import React, { useMemo, useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '../../index';
 import orderFeedStyles from './order-feed.module.css';
 import Orders from '../../components/orders/orders';
-import { WS_CONNECTION_START } from '../../services/actions/ws-action-types';
+import { WS_CONNECTION_START, WS_CONNECTION_CLOSED } from '../../services/actions/ws-action-types';
 
 function OrderFeed(): React.JSX.Element {
 
@@ -23,9 +23,16 @@ function OrderFeed(): React.JSX.Element {
     useEffect(() => {
       dispatch({ 
         type: WS_CONNECTION_START, 
-        payload: 'wss://norma.nomoreparties.space/orders/all' });
+        payload: 'wss://norma.nomoreparties.space/orders/all' 
+      });
+      return () => {
+        // console.log('OrderFeed component is unmounted');
+        // console.log(wsConnected);
+        
+        dispatch({ type: WS_CONNECTION_CLOSED });
+      };
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [dispatch]);
 
   return (
     <div className={orderFeedStyles.main}>

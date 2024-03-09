@@ -55,14 +55,15 @@
 
 .ingredients {
   max-height: 215px;
-  width: 720px;
+  max-width: 720px;
   overflow-y: scroll;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
   padding: 0;
 }
 
 .ingredientContainer {
   display: flex;
+  width: 720px;
   align-items: center;
   justify-content: space-between;
 }
@@ -70,4 +71,5 @@
 .imgNameContainer {
   display: flex;
   align-items: center;
+  max-width: 550px;
 }

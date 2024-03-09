@@ -33,7 +33,7 @@ export function handleGetIngredients(): AppThunkAction {
         type: GET_INGREDIENTS_SUCCESS,
         payload: res.data
       });
-      console.log(res.data)
+      // console.log(res.data)
     })
     .catch((err) => {
       console.log(err);
