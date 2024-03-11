@@ -21,3 +21,20 @@ export interface IUserInfoFormValues {
   email: string;
   password?: string;
 }; 
+
+export interface IOrderArr {
+  ingredients: string[],
+  _id: string,
+  status: string,
+  name: string,
+  number: number,
+  createdAt: string,
+  updatedAt: string
+}
+
+export interface IMessageType {
+  success: boolean,
+  orders: IOrderArr[],
+  total: number | null;
+  totalToday: number | null;
+}

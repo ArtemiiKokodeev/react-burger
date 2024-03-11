@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import orderInfosStyles from './order-info.module.css';
 import { useLocation } from 'react-router-dom';
 import { useAppSelector } from '../../index';
-import { IOrderArr } from '../../services/actions/ws-action-types';
-// import { TIngredient } from '../../utils/types';
+import type { IOrderArr } from '../../utils/types';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 type TOrderInfoProps = { background?: string };
@@ -18,16 +17,9 @@ const OrderInfo = ( {background }: TOrderInfoProps ): React.JSX.Element => {
   const orderInfoIngredientsId = orderInfo?.ingredients
   const { ingredients } = useAppSelector((state) => state.ingredientsArr);
 
-  // useEffect(() => {
-  //   console.log(orderInfo)
-  //   console.log(ingredients)
-  //   console.log(orderIngredientsWithIdAndQuantity)
-  //   console.log(orderIngredients)
-  //  // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [])
-
   // создание массива объектов с ключами: _id - уникальные ингредиенты заказа, count - кол-во штук одного ингредиента в заказе
   const idCounts = {};
+    // @ts-ignore
   orderInfoIngredientsId?.forEach(_id => {
     // @ts-ignore
     idCounts[_id] = (idCounts[_id] || 0) + 1;

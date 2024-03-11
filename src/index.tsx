@@ -14,14 +14,15 @@ import { TLogin } from './services/actions/login';
 import { TIngredientsActions } from './services/actions/ingredients';
 import { TIngredientsDetailesActions } from './services/actions/ingredient-details';
 import { TBurgerConstructor } from './services/actions/burger-constructor';
-import { TWSActions } from './services/actions/ws-action-types';
+import { TFeedActions } from './services/actions/feed';
+import { TUserFeedActions } from './services/actions/user-feed';
 import { TOrderInfoActions } from './services/actions/order-info';
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 
 const store = configureStore();
 
-type TApplicationActions = TRegisterActions | TUserProfile | TOrderActions | TLogin | TIngredientsActions | TIngredientsDetailesActions | TBurgerConstructor | TWSActions | TOrderInfoActions;
+type TApplicationActions = TRegisterActions | TUserProfile | TOrderActions | TLogin | TIngredientsActions | TIngredientsDetailesActions | TBurgerConstructor | TFeedActions | TUserFeedActions | TOrderInfoActions;
 
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = ThunkDispatch<RootState, unknown, TApplicationActions>;

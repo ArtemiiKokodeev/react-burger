@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import orderItemStyles from './order-item.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { IOrderArr} from '../../../services/actions/ws-action-types';
+import { IOrderArr} from '../../../utils/types';
 import { TIngredient } from '../../../utils/types';
 import { useAppSelector, useAppDispatch } from '../../../index';
 import { SHOW_ORDER_INFO } from '../../../services/actions/order-info';

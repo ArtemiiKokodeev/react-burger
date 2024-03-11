@@ -2,7 +2,7 @@ import React, { useMemo, useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '../../index';
 import orderFeedStyles from './order-feed.module.css';
 import Orders from '../../components/orders/orders';
-import { WS_CONNECTION_START, WS_CONNECTION_CLOSED } from '../../services/actions/ws-action-types';
+import { FEED_CONNECTION_START, FEED_CONNECTION_CLOSED } from '../../services/actions/feed';
 
 function OrderFeed(): React.JSX.Element {
 
@@ -22,14 +22,12 @@ function OrderFeed(): React.JSX.Element {
     // запрос массива заказов
     useEffect(() => {
       dispatch({ 
-        type: WS_CONNECTION_START, 
+        type: FEED_CONNECTION_START, 
         payload: 'wss://norma.nomoreparties.space/orders/all' 
       });
       return () => {
         // console.log('OrderFeed component is unmounted');
-        // console.log(wsConnected);
-        
-        dispatch({ type: WS_CONNECTION_CLOSED });
+        dispatch({ type: FEED_CONNECTION_CLOSED });
       };
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch]);

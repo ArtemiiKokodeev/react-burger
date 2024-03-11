@@ -3,30 +3,56 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import reducer from "./reducers/index";
 import thunkMiddleware from "redux-thunk";
 import { socketMiddleware } from '../utils/socket-middleware';
-import type { TWSStoreActions } from "../services/actions/ws-action-types";
+import type { TFeedStoreActions } from "./actions/feed";
+import type { TUserFeedStoreActions } from "./actions/user-feed";
 import {
-  WS_CONNECTION_CLOSED,
-  WS_CONNECTION_ERROR,
-  WS_CONNECTION_START,
-  WS_CONNECTION_SUCCESS,
-  WS_GET_MESSAGE,
-  WS_SEND_MESSAGE
-} from '../services/actions/ws-action-types';
+  FEED_CONNECTION_CLOSED,
+  FEED_CONNECTION_ERROR,
+  FEED_CONNECTION_START,
+  FEED_CONNECTION_SUCCESS,
+  FEED_GET_MESSAGE,
+  FEED_SEND_MESSAGE
+} from './actions/feed';
 
-const wsActions: TWSStoreActions = {
-  wsInit: WS_CONNECTION_START,
-  wsSendMessage: WS_SEND_MESSAGE,
-  onOpen: WS_CONNECTION_SUCCESS,
-  onClose: WS_CONNECTION_CLOSED,
-  onError: WS_CONNECTION_ERROR,
-  onMessage: WS_GET_MESSAGE
+import {
+  USER_FEED_CONNECTION_CLOSED,
+  USER_FEED_CONNECTION_ERROR,
+  USER_FEED_CONNECTION_START,
+  USER_FEED_CONNECTION_SUCCESS,
+  USER_FEED_GET_MESSAGE,
+  USER_FEED_SEND_MESSAGE
+} from './actions/user-feed';
+
+const feedActions: TFeedStoreActions = {
+  wsInit: FEED_CONNECTION_START,
+  wsSendMessage: FEED_SEND_MESSAGE,
+  onOpen: FEED_CONNECTION_SUCCESS,
+  onClose: FEED_CONNECTION_CLOSED,
+  onError: FEED_CONNECTION_ERROR,
+  onMessage: FEED_GET_MESSAGE
 };
+
+const userFeedActions: TUserFeedStoreActions = {
+  wsInit: USER_FEED_CONNECTION_START,
+  wsSendMessage: USER_FEED_SEND_MESSAGE,
+  onOpen: USER_FEED_CONNECTION_SUCCESS,
+  onClose: USER_FEED_CONNECTION_CLOSED,
+  onError: USER_FEED_CONNECTION_ERROR,
+  onMessage: USER_FEED_GET_MESSAGE
+};
+
 
 export const configureStore = (initialState?: any) => {
   const store = createStore(
     reducer,
     initialState,
-    composeWithDevTools(applyMiddleware(thunkMiddleware, socketMiddleware(wsActions)))
+    composeWithDevTools(
+      applyMiddleware(
+        thunkMiddleware, 
+        socketMiddleware(feedActions),
+        socketMiddleware(userFeedActions)
+      )
+    )
   );
 
   return store;

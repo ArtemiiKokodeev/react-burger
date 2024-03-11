@@ -1,4 +1,4 @@
-import { IOrderArr } from './ws-action-types'
+import { IOrderArr } from '../../utils/types';
 
 export const SHOW_ORDER_INFO: "SHOW_ORDER_INFO" = "SHOW_ORDER_INFO";
 export const CLOSE_ORDER_INFO: "CLOSE_ORDER_INFO" = "CLOSE_ORDER_INFO";

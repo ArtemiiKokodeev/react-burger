@@ -4,7 +4,7 @@ import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { handleLogout } from '../../services/actions/profile';
 import { POST_LOGOUT } from "../../services/actions/login";
 import { useAppDispatch } from '../../index';
-import { WS_CONNECTION_START, WS_CONNECTION_CLOSED } from '../../services/actions/ws-action-types';
+import { USER_FEED_CONNECTION_START, USER_FEED_CONNECTION_CLOSED } from '../../services/actions/user-feed';
 
 function Profile() {
 
@@ -16,12 +16,12 @@ function Profile() {
   // запрос массива заказов
   useEffect(() => {
     dispatch({ 
-      type: WS_CONNECTION_START, 
+      type: USER_FEED_CONNECTION_START, 
       payload: `wss://norma.nomoreparties.space/orders?token=${accessToken}`
     });
     // console.log(accessToken);
     return () => {
-      dispatch({ type: WS_CONNECTION_CLOSED });
+      dispatch({ type: USER_FEED_CONNECTION_CLOSED });
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);

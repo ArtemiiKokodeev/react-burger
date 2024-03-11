@@ -1,5 +1,5 @@
 import { SHOW_ORDER_INFO, CLOSE_ORDER_INFO } from "../actions/order-info";
-import { IOrderArr } from '../actions/ws-action-types'
+import { IOrderArr } from '../../utils/types'
 import type { TOrderInfoActions } from '../actions/order-info';
 
 type TOrderInfoInitialState = { 

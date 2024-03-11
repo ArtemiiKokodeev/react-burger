@@ -6,7 +6,8 @@ import { orderReducer } from "./order";
 import { registerReducer } from "./register";
 import { loginReducer } from "./login";
 import { userInfoReducer } from "./profile";
-import { wsReducer } from "./ws-reducer";
+import { feedReducer } from "./feed";
+import { userFeedReducer } from "./user-feed"
 import { orderInfoReducer } from "./order-info";
 
 const reducer = combineReducers({
@@ -17,7 +18,8 @@ const reducer = combineReducers({
     register: registerReducer,
     login: loginReducer,
     profile: userInfoReducer,
-    feed: wsReducer,
+    feed: feedReducer,
+    userFeed: userFeedReducer,
     orderInfo: orderInfoReducer
 });
 

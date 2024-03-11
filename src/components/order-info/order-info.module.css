@@ -63,7 +63,7 @@
 
 .ingredientContainer {
   display: flex;
-  width: 720px;
+  width: 700px;
   align-items: center;
   justify-content: space-between;
 }
