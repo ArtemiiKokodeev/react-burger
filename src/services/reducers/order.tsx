@@ -5,22 +5,23 @@ import {
   SHOW_ORDER_DETAILS,
   CLOSE_ORDER_DETAILS
 } from '../actions/order';
+import type { TOrderActions } from '../actions/order';
 
 type TOrderInitialState = { 
   orderRequest: boolean,
   orderFailed: boolean,
-  orderNum: number | null,
+  orderNum: number,
   isOrderModalOpened: boolean
 }
 
 const initialState: TOrderInitialState = {
   orderRequest: false,
   orderFailed: false,
-  orderNum: null,
+  orderNum: 0,
   isOrderModalOpened: false
 };
 
-export const orderReducer = (state = initialState, action: any) => {
+export const orderReducer = (state = initialState, action: TOrderActions) : TOrderInitialState => {
   switch (action.type) {
     case CREATE_ORDER: {
       return {
@@ -40,7 +41,7 @@ export const orderReducer = (state = initialState, action: any) => {
       return { 
         ...state, 
         orderFailed: true, 
-        orderRequest: false 
+        orderRequest: false
       };
     }
     case SHOW_ORDER_DETAILS: {

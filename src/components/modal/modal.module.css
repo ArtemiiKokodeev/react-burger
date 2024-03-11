@@ -25,6 +25,5 @@
 .header {
   display: flex;
   align-items: center;
-  width: 640px;
   justify-content: end;
 }

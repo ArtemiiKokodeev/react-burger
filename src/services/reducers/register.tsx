@@ -4,6 +4,7 @@ import {
   POST_REGISTER_FAILED,
   POST_REGISTER_CLOSE_SUCCESS_TEXT
 } from '../actions/register';
+import type { TRegisterActions } from '../actions/register';
 
 interface IRegisterInitialState {
   registerRequest: boolean,
@@ -17,7 +18,7 @@ const initialState: IRegisterInitialState = {
   registerSuccessText: false
 };
 
-export const registerReducer = (state = initialState, action: any) => {
+export const registerReducer = (state = initialState, action: TRegisterActions) => {
   switch (action.type) {
     case POST_REGISTER: {
       return {

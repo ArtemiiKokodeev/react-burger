@@ -1,0 +1,25 @@
+.main {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.ordersInfoContainer {
+  width: 626px;
+}
+
+.readyAndInprogressContainer {
+  display: flex;
+}
+
+.readyContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.orderNumbers {
+  list-style-type: none;
+  padding: 0;
+}

@@ -18,8 +18,10 @@ function ConstructorOrder( { total }: TConstructorOrderProps ): React.JSX.Elemen
 
   const orderIngredients = useMemo(() => {
     const orderArr = structuredClone(constructorIngredients);
-    orderArr.unshift(constructorBuns);
-    orderArr.push(constructorBuns);
+    if (constructorBuns) {
+      orderArr.unshift(constructorBuns);
+      orderArr.push(constructorBuns);
+    }
     return orderArr;
   }, [constructorIngredients, constructorBuns]);
 

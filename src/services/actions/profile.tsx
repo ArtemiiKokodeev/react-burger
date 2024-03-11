@@ -1,18 +1,63 @@
 import * as api from '../../utils/api';
 import { burgerPartyApiUrl } from '../../utils/constants';
-import { Dispatch } from 'redux';
+import { AppDispatch, AppThunkAction } from '../../index';
 import { IUserInfoFormValues } from '../../utils/types'
-export const GET_USER_INFO = "GET_USER_INFO";
-export const GET_USER_INFO_SUCCESS = "GET_USER_INFO_SUCCESS";
-export const GET_USER_INFO_FAILED = "GET_USER_INFO_FAILED";
-export const PATCH_USER_INFO = "PATCH_USER_INFO";
-export const PATCH_USER_INFO_SUCCESS = "PATCH_USER_INFO_SUCCESS";
-export const PATCH_USER_INFO_FAILED = "PATCH_USER_INFO_FAILED";
-export const POST_USER_LOGOUT = "POST_USER_LOGOUT";
-export const SET_AUTH_CHECKED = "SET_AUTH_CHECKED";
+export const GET_USER_INFO: "GET_USER_INFO" = "GET_USER_INFO";
+export const GET_USER_INFO_SUCCESS: "GET_USER_INFO_SUCCESS" = "GET_USER_INFO_SUCCESS";
+export const GET_USER_INFO_FAILED: "GET_USER_INFO_FAILED" = "GET_USER_INFO_FAILED";
+export const PATCH_USER_INFO: "PATCH_USER_INFO" = "PATCH_USER_INFO";
+export const PATCH_USER_INFO_SUCCESS: "PATCH_USER_INFO_SUCCESS" = "PATCH_USER_INFO_SUCCESS";
+export const PATCH_USER_INFO_FAILED: "PATCH_USER_INFO_FAILED" = "PATCH_USER_INFO_FAILED";
+export const POST_USER_LOGOUT: "POST_USER_LOGOUT" = "POST_USER_LOGOUT";
+export const SET_AUTH_CHECKED: "SET_AUTH_CHECKED" = "SET_AUTH_CHECKED";
 
-export function handleGetUserInfo() {
-  return function(dispatch: Dispatch) {
+export interface IGetUserInfo {
+  readonly type: typeof GET_USER_INFO
+};
+
+export interface IGetUserInfoSuccess {
+  readonly type: typeof GET_USER_INFO_SUCCESS;
+  readonly payload: IUserInfoFormValues;
+};
+
+export interface IGetUserInfoFailed {
+  readonly type: typeof GET_USER_INFO_FAILED
+};
+
+export interface IUpdateUserInfo {
+  readonly type: typeof PATCH_USER_INFO
+};
+
+export interface IUpdateUserInfoSuccess {
+  readonly type: typeof PATCH_USER_INFO_SUCCESS;
+  readonly payload: IUserInfoFormValues;
+};
+
+export interface IUpdateUserInfoFailed {
+  readonly type: typeof PATCH_USER_INFO_FAILED
+};
+
+export interface IUserLogout {
+  readonly type: typeof POST_USER_LOGOUT;
+};
+
+export interface IAuthCheck {
+  readonly type: typeof SET_AUTH_CHECKED;
+  readonly payload: boolean;
+};
+
+export type TUserProfile = 
+  | IGetUserInfo
+  | IGetUserInfoSuccess
+  | IGetUserInfoFailed
+  | IUpdateUserInfo
+  | IUpdateUserInfoSuccess
+  | IUpdateUserInfoFailed
+  | IUserLogout
+  | IAuthCheck;
+
+export function handleGetUserInfo(): AppThunkAction {
+  return function(dispatch: AppDispatch) {
     dispatch({
       type: GET_USER_INFO
     });
@@ -41,8 +86,8 @@ export function handleGetUserInfo() {
   }
 }
 
-export function handleUpdateUserInfo(userInfo: IUserInfoFormValues) {
-  return function(dispatch: Dispatch) {
+export function handleUpdateUserInfo(userInfo: IUserInfoFormValues): AppThunkAction {
+  return function(dispatch: AppDispatch) {
     const { name, email, password } = userInfo;
     dispatch({
       type: PATCH_USER_INFO
@@ -70,8 +115,8 @@ export function handleUpdateUserInfo(userInfo: IUserInfoFormValues) {
   }
 }
 
-export function handleLogout() {
-  return function(dispatch: Dispatch) {
+export function handleLogout(): AppThunkAction {
+  return function(dispatch: AppDispatch) {
     api.logout().then(res => {
       if (res && res.success) {
         dispatch({

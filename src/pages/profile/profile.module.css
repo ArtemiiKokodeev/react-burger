@@ -1,15 +1,17 @@
 .profile {
-  margin: 0 auto;
-  padding: 120px 0;
-  max-width: 860px;
+  margin: 0 0 0 340px;
+  padding: 0;
+  /* width: 1000px; */
   height: 320px;
   display: flex;
+  /* justify-content: center; */
 }
 
 .navContainer {
   margin: 0 60px 0 0;
-  padding: 0;
+  padding: 120px 0 0;
   width: 320px;
+  height: 300px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

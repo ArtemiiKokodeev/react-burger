@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import burgerConstructorIngStyles from './burger-constructor-ing.module.css';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from '../../../index';
 import { useDrop, useDrag } from 'react-dnd';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { 
@@ -8,16 +8,16 @@ import {
   SORT_INGREDIENTS_IN_CONSTRUCTOR 
 } from "../../../services/actions/burger-constructor";
 // import { TIngredient } from '../../../utils/types';
-import { ConstructorIngredient } from '../../../services/reducers/burger-constructor';
+import { TConstructorIngredient } from '../../../utils/types';
 
 type TBurgerConstructorIngProps = {
-  el: ConstructorIngredient,
+  el: TConstructorIngredient,
   index: number
 };
 
 function BurgerConstructorIng( { el, index }: TBurgerConstructorIngProps ): React.JSX.Element {
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();  
   const ref = useRef<HTMLLIElement>(null);
 
   const moveIngredient = (dragIndex: any, hoverIndex: any) => {
@@ -64,7 +64,7 @@ function BurgerConstructorIng( { el, index }: TBurgerConstructorIngProps ): Reac
     },
   });
 
-  const removeIngFromConstructor = (el: ConstructorIngredient) => {
+  const removeIngFromConstructor = (el: TConstructorIngredient) => {
     dispatch({
       type: REMOVE_INGREDIENTS_FROM_CONSTRUCTOR,
       payload: el.key

@@ -6,6 +6,9 @@ import { orderReducer } from "./order";
 import { registerReducer } from "./register";
 import { loginReducer } from "./login";
 import { userInfoReducer } from "./profile";
+import { feedReducer } from "./feed";
+import { userFeedReducer } from "./user-feed"
+import { orderInfoReducer } from "./order-info";
 
 const reducer = combineReducers({
     ingredientsArr: ingredientsReducer,
@@ -14,7 +17,10 @@ const reducer = combineReducers({
     order: orderReducer,
     register: registerReducer,
     login: loginReducer,
-    profile: userInfoReducer
+    profile: userInfoReducer,
+    feed: feedReducer,
+    userFeed: userFeedReducer,
+    orderInfo: orderInfoReducer
 });
 
 export default reducer;

@@ -15,8 +15,11 @@ import Modal from '../modal/modal';
 import UserInfo from '../user-info/user-info';
 import Orders from '../orders/orders';
 import PageNotFound from '../not-found/not-found';
+import OrderFeed from '../../pages/order-feed/order-feed';
+import OrderInfo from '../order-info/order-info';
 import { OnlyUnAuth, OnlyAuth } from '../protected-route/protected-route';
 import { CLOSE_INGREDIENT_DETAILS } from "../../services/actions/ingredient-details";
+import { CLOSE_ORDER_INFO } from "../../services/actions/order-info";
 import { POST_LOGIN_SUCCESS } from "../../services/actions/login";
 import { useAppSelector, useAppDispatch } from '../../index';
 
@@ -51,6 +54,10 @@ function App() {
       type: CLOSE_INGREDIENT_DETAILS,
       payload: null
     });
+    dispatch({
+      type: CLOSE_ORDER_INFO,
+      payload: null
+    });
   };
 
   // проверка токена при обновлении страницы
@@ -71,6 +78,8 @@ function App() {
       <Routes location={background || location}>
         <Route index element={<Home />}/>
         <Route path="/ingredients/:ingredientId" element={<IngredientDetails />} />
+        <Route path="/feed" element={<OrderFeed />} />
+        <Route path="/feed/:number" element={<OrderInfo />} />
         <Route path="/register" element={<OnlyUnAuth component={Register} />} />
         <Route path="/login" element={<OnlyUnAuth component={Login} />} />
         <Route path="/forgot-password" element={<OnlyUnAuth component={ForgotPassword} />} />
@@ -78,6 +87,7 @@ function App() {
         <Route path="/profile" element={<OnlyAuth component={Profile}/>}>
           <Route path="/profile" element={<UserInfo />} />
           <Route path="/profile/orders" element={<Orders />} />
+          {/* <Route path="/profile/orders/:number" element={<OrderInfo />} /> */}
         </Route>
         <Route path="*" element={<PageNotFound />} />
       </Routes>
@@ -91,6 +101,16 @@ function App() {
                 onClose={handleModalClose} 
               >
 	              <IngredientDetails background={background}/>
+	            </Modal>
+	          }
+	        />
+          <Route
+	          path="/feed/:number"
+	          element={
+	            <Modal 
+                onClose={handleModalClose} 
+              >
+	              <OrderInfo background={background}/>
 	            </Modal>
 	          }
 	        />

@@ -21,7 +21,7 @@ function AppHeader(): React.JSX.Element {
             </>
           )}
         </NavLink>
-        <NavLink to="/orders" className={`${appHeaderStyles.headerItem}`}>
+        <NavLink to="/feed" className={`${appHeaderStyles.headerItem}`}>
           {({isActive}) => (
             <>
               <ListIcon type={isActive ? "primary" : "secondary"}/>

@@ -1,14 +1,42 @@
 import * as api from '../../utils/api';
-import { Dispatch } from 'redux';
+import { AppDispatch, AppThunkAction } from '../../index';
 import { TIngredient } from '../../utils/types'
-export const CREATE_ORDER = "CREATE_ORDER";
-export const CREATE_ORDER_SUCCESS = "CREATE_ORDER_SUCCESS";
-export const CREATE_ORDER_FAILED = "CREATE_ORDER_FAILED";
-export const SHOW_ORDER_DETAILS = "SHOW_ORDER_DETAILS";
-export const CLOSE_ORDER_DETAILS = "CLOSE_ORDER_DETAILS";
+export const CREATE_ORDER: "CREATE_ORDER" = "CREATE_ORDER";
+export const CREATE_ORDER_SUCCESS: "CREATE_ORDER_SUCCESS" = "CREATE_ORDER_SUCCESS";
+export const CREATE_ORDER_FAILED: "CREATE_ORDER_FAILED" = "CREATE_ORDER_FAILED";
+export const SHOW_ORDER_DETAILS: "SHOW_ORDER_DETAILS" = "SHOW_ORDER_DETAILS";
+export const CLOSE_ORDER_DETAILS: "CLOSE_ORDER_DETAILS" = "CLOSE_ORDER_DETAILS";
 
-export function handleCreateOrder(ingredients: Array<TIngredient>) {
-  return function(dispatch: Dispatch) {
+export interface IPostCreateOrder {
+  readonly type: typeof CREATE_ORDER
+};
+
+export interface IPostCreateOrderSuccess {
+  readonly type: typeof CREATE_ORDER_SUCCESS;
+  readonly payload: number;
+};
+
+export interface IPostCreateOrderFailed {
+  readonly type: typeof CREATE_ORDER_FAILED
+};
+
+export interface IShowOrderDetails {
+  readonly type: typeof SHOW_ORDER_DETAILS
+};
+
+export interface ICloseOrderDetails {
+  readonly type: typeof CLOSE_ORDER_DETAILS
+};
+
+export type TOrderActions = 
+  | IPostCreateOrder
+  | IPostCreateOrderSuccess
+  | IPostCreateOrderFailed
+  | IShowOrderDetails
+  | ICloseOrderDetails;
+
+export function handleCreateOrder(ingredients: Array<TIngredient>): AppThunkAction {
+  return function(dispatch: AppDispatch) {
     dispatch({
       type: CREATE_ORDER
     });
@@ -25,7 +53,7 @@ export function handleCreateOrder(ingredients: Array<TIngredient>) {
     })
     .catch((err) => {
       console.log(err);
-      dispatch({ type: CREATE_ORDER_FAILED, payload: err });
+      dispatch({ type: CREATE_ORDER_FAILED });
     })
   }
 }
