@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "main": "index.js",
   "private": true,
-  "homepage": "./",
+  "homepage": "https://github.com/ArtemiiKokodeev/react-burger#readme",
   "repository": {
     "type": "git",
     "url": "git@github.com:ArtemiiKokodeev/react-burger.git"
