@@ -5,7 +5,7 @@ import App from './components/app/app';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import type { TypedUseSelectorHook } from 'react-redux'
 import { configureStore } from './services/store'
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import type { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { TRegisterActions } from './services/actions/register';
 import { TUserProfile } from './services/actions/profile';
@@ -34,9 +34,9 @@ export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
+      <HashRouter>
         <App />
-      </BrowserRouter>
+      </HashRouter>
     </Provider>
   </React.StrictMode>
 );
