@@ -20,7 +20,7 @@ const IngredientDetails = ( {background }: TIngredientDetailsProps ): React.JSX.
     {
       ingredientsRequest ? <p className={homeStyles.loader}>Загрузка...</p> :
       ing && 
-        <div className={ingredientDetailsStyles.ingredientDetails}>
+        <div className={ingredientDetailsStyles.ingredientDetails} data-testid='ingredientDetails'>
         <h3 className={`${background ? ingredientDetailsStyles.title : ingredientDetailsStyles.titlePage} text text_type_main-large`}>
           Детали ингредиента
         </h3>

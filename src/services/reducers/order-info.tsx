@@ -6,7 +6,7 @@ type TOrderInfoInitialState = {
   openedOrder: IOrderArr | null
 }
 
-const initialState: TOrderInfoInitialState = { 
+export const initialState: TOrderInfoInitialState = { 
   openedOrder: null
 };
 

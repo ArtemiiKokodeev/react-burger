@@ -49,7 +49,7 @@ function IngredientItem( { ingredient, name, price, image }: TIngredientItemProp
   
 
   return (
-    <div className={`${ingredientItemStyles.item} mb-8`} onClick={handleIngredientClick} ref={ref}>
+    <div className={`${ingredientItemStyles.item} mb-8`} onClick={handleIngredientClick} ref={ref} data-testid='ingredientItem'>
       <img src={image} alt={`Ингредиент ${name}`} 
         className={`${ingredientItemStyles.image} mr-4 mb-1 ml-4`}
       />

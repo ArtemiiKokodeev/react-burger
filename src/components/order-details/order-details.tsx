@@ -7,7 +7,7 @@ type TOrderDetailsProps = { orderNumber: number };
 function OrderDetails( { orderNumber }: TOrderDetailsProps ): React.JSX.Element {
 
   return (
-    <div className={orderDetailssStyles.orderDetails}>
+    <div className={orderDetailssStyles.orderDetails} data-testid='orderModal'>
       <p className={`${orderDetailssStyles.orderNumber} text text_type_digits-large mb-8`}>
         {orderNumber}
       </p>

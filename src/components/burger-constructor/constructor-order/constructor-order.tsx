@@ -40,7 +40,7 @@ function ConstructorOrder( { total }: TConstructorOrderProps ): React.JSX.Elemen
         <p className="text text_type_digits-medium mr-2">{total}</p>
         <img src={CurrencyIconMedium} className="image" alt='Иконка валюты' />
       </div>
-      <Button htmlType="button" type="primary" size="medium" extraClass="ml-10 mr-4"
+      <Button data-testid='orderMade' htmlType="button" type="primary" size="medium" extraClass="ml-10 mr-4"
         onClick={createOrder} 
         disabled={constructorBuns === null || constructorIngredients.length === 0}>
           Оформить заказ

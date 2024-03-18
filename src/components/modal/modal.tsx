@@ -25,7 +25,7 @@ const Modal: FC<TModalProps> = ({ children, onClose } ) => {
   return ReactDOM.createPortal(
     <div className={modalStyles.popup}>
       <div className={modalStyles.container}>
-        <div className={modalStyles.header}>
+        <div className={modalStyles.header} data-testid='closeModal'>
           <CloseIcon type="primary" onClick={onClose}/>
         </div>
         {children}
