@@ -10,7 +10,9 @@ function Orders(): React.JSX.Element {
   const { userOrders } = useAppSelector((state) => state.userFeed);
   const location = useLocation();
 
-  const ordersArr = location.pathname === '/feed' ? orders : userOrders;
+  const ordersArr = location.pathname === '/feed' ? 
+    orders : 
+    Array.from(userOrders).reverse();
 
     return (
       <section className="mt-10 mr-10 custom-scroll">
@@ -20,7 +22,7 @@ function Orders(): React.JSX.Element {
           </h2>
         }
         <ul className={`${ordersStyles.list} mb-10`}>
-          {Array.from(ordersArr).reverse().map((elem) => (
+          {ordersArr.map((elem) => (
             <Link
               key={elem.number}
               // Тут мы формируем динамический путь для нашего заказа

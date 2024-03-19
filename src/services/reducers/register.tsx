@@ -12,7 +12,7 @@ interface IRegisterInitialState {
   registerSuccessText: boolean
 };
 
-const initialState: IRegisterInitialState = {
+export const initialState: IRegisterInitialState = {
   registerRequest: false,
   registerFailed: false,
   registerSuccessText: false

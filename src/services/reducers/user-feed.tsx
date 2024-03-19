@@ -16,7 +16,7 @@ type TUserFeedState = {
   error?: Event;
 }
 
-const initialState: TUserFeedState = {
+export const initialState: TUserFeedState = {
   wsConnected: false,
   userOrders: [],
   total: null,

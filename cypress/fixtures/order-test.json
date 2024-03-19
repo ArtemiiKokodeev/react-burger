@@ -1,0 +1,20 @@
+{
+  "success": true,
+  "name": "Space флюоресцентный антарианский бургер",
+  "order": {
+      "ingredients": [],
+      "_id": "65f86b1e97ede0001d0611cf",
+      "owner": {
+          "name": "Artemii",
+          "email": "artemkokodeev@gmail.com",
+          "createdAt": "2024-03-07T17:07:53.215Z",
+          "updatedAt": "2024-03-07T17:08:59.787Z"
+      },
+      "status": "done",
+      "name": "Space флюоресцентный антарианский бургер",
+      "createdAt": "2024-03-18T16:26:06.941Z",
+      "updatedAt": "2024-03-18T16:26:07.614Z",
+      "number": 36253,
+      "price": 2144
+  }
+}

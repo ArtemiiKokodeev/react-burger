@@ -22,7 +22,7 @@ interface IUserInfoInitialState {
   isAuthChecked: boolean
 };
 
-const initialState: IUserInfoInitialState = {
+export const initialState: IUserInfoInitialState = {
   userInfoRequest: false,
   userInfoFailed: false,
   userInfo: null,

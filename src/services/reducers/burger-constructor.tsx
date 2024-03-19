@@ -12,7 +12,7 @@ type TConstructorInitialeState = {
   constructorIngredients: Array<TConstructorIngredient>
 }
 
-const initialState: TConstructorInitialeState = {
+export const initialState: TConstructorInitialeState = {
   constructorBuns: null,
   constructorIngredients: []
 };

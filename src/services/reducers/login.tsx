@@ -12,7 +12,7 @@ interface ILoginInitialState {
   loggedIn: boolean
 };
 
-const initialState: ILoginInitialState = {
+export const initialState: ILoginInitialState = {
   loginRequest: false,
   loginFailed: false,
   loggedIn: false

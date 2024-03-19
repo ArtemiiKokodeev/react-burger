@@ -12,7 +12,7 @@ interface IIngredientsInitialState {
   ingredients: Array<TIngredient>
 };
 
-const initialState: IIngredientsInitialState = {
+export const initialState: IIngredientsInitialState = {
   ingredientsRequest: true,
   ingredientsFailed: false,
   ingredients: []

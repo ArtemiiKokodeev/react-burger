@@ -50,7 +50,7 @@ function BurgerConstructor(
   }, [constructorIngredients, constructorBuns]);
 
   return (
-      <section className={`${burgerConstructorStyles.box} mt-25`} ref={drop}>
+      <section className={`${burgerConstructorStyles.box} mt-25`} ref={drop} data-testid='constructorBox'>
         {!constructorBuns ? 
           <div className={`${burgerConstructorStyles.defaultBun} ${burgerConstructorStyles.defaultTopBun} ml-8`}>
             <p>Выберите булки</p>
