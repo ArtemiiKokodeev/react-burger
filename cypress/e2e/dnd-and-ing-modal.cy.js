@@ -5,16 +5,20 @@ describe('dnd and ing-modal', () => {
     cy.intercept('GET', 'api/ingredients', { fixture: 'ingredients-arr.json' }).as('handleGetIngredients');
   });
 
+  /* eslint-disable cypress/unsafe-to-chain-command */
+
   it('dnd-move ingredients to constructor', () => {
     cy.wait('@handleGetIngredients');
     cy.get('[data-testid=ingredientItem]').as('ingredientItem');
     cy.get('[data-testid=constructorBox]').as('constructorBox');
-    cy.get('@ingredientItem').contains('Краторная булка N-200i').trigger('dragstart');
-    cy.get('@constructorBox').trigger('drop');
-    cy.get('@ingredientItem').contains('Соус Spicy-X').trigger('dragstart');
-    cy.get('@constructorBox').trigger('drop');
-    cy.get('@ingredientItem').contains('Филе Люминесцентного тетраодонтимформа').trigger('dragstart');
-    cy.get('@constructorBox').trigger('drop');
+    cy.get('@ingredientItem').contains('Краторная булка N-200i').trigger('mousedown').trigger('dragstart');
+    cy.get('@constructorBox').trigger('dragover').trigger('drop');
+    
+    cy.get('@ingredientItem').contains('Соус Spicy-X').trigger('mousedown').trigger('dragstart');
+    cy.get('@constructorBox').trigger('dragover').trigger('drop');
+    
+    cy.get('@ingredientItem').contains('Филе Люминесцентного тетраодонтимформа').trigger('mousedown').trigger('dragstart');
+    cy.get('@constructorBox').trigger('dragover').trigger('drop');
   });
 
   it('ingredient modal', () => {
